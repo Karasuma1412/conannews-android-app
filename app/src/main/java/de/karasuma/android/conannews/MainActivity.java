@@ -1,5 +1,6 @@
 package de.karasuma.android.conannews;
 
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 import de.karasuma.android.conannews.data.*;
 import android.support.v7.app.AppCompatActivity;
@@ -14,17 +15,18 @@ import de.karasuma.android.conannews.communication.RequestPostsTask;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerViewAdapter recyclerViewAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        RequestPostsTask task = new RequestPostsTask();
+        RequestPostsTask task = new RequestPostsTask(this);
         task.execute();
 
         recyclerViewAdapter = new RecyclerViewAdapter(Model.getInstance().getPosts());
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void updatePosts(JSONObject jsonObject) {
-        recyclerViewAdapter.notifyDataSetChanged();
+    public void updatePosts() {
+        recyclerViewAdapter = new RecyclerViewAdapter(Model.getInstance().getPosts());
+        recyclerView.setAdapter(recyclerViewAdapter);
     }
 }
