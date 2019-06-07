@@ -31,7 +31,16 @@ class JSONHandler {
         return jsonObject;
     }
 
-    public static void createPosts(JSONArray jsonObject) {
-        JSONArray array = jsonObject;
+    public static void createPosts(JSONArray jsonArray) {
+        for (int i = 0; i < 10; i++) {
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String title = jsonObject.getJSONObject("title").getString("rendered");
+                String content = jsonObject.getJSONObject("content").getString("rendered");
+                HTMLParser.parseToString(content);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
