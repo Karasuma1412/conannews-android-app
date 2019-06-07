@@ -31,12 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFakeData() {
         Model model = Model.getInstance();
-
-
     }
 
     public void updatePosts() {
-        recyclerViewAdapter = new RecyclerViewAdapter(Model.getInstance().getPosts());
-        recyclerView.setAdapter(recyclerViewAdapter);
+        //recyclerViewAdapter = new RecyclerViewAdapter(Model.getInstance().getPosts());
+        //recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 }

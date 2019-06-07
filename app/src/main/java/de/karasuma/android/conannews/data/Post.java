@@ -7,10 +7,9 @@ public class Post {
     private String content;
     private Bitmap bitmap;
 
-    public Post(String title, String content, Bitmap bitmap) {
+    public Post(String title, String content) {
         this.title = title;
         this.content = content;
-        this.bitmap = bitmap;
     }
 
     public String getTitle() {
@@ -23,5 +22,9 @@ public class Post {
 
     public Bitmap getBitmap() {
         return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 }

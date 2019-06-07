@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import de.karasuma.android.conannews.MainActivity;
 import de.karasuma.android.conannews.data.Model;
 import de.karasuma.android.conannews.data.Post;
 
@@ -37,7 +38,7 @@ class JSONHandler {
         return jsonArray;
     }
 
-    public static void createPosts(JSONArray jsonArray, ArrayList<Bitmap> bitmaps) {
+    public static void createPosts(JSONArray jsonArray, MainActivity mainActivity) {
         for (int i = 0; i < 10; i++) {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -47,10 +48,15 @@ class JSONHandler {
                 String content = jsonObject.getJSONObject("content").getString("rendered");
                 content = Jsoup.parse(content).text();
 
-
-
-                Post post = new Post(title, content, bitmaps.get(i));
+                Post post = new Post(title, content);
                 Model.getInstance().getPosts().add(post);
+
+                RequestPostCoverTask task = new RequestPostCoverTask(mainActivity, post);
+                task.execute(jsonObject.getJSONObject("_links")
+                        .getJSONArray("wp:featuredmedia")
+                        .getJSONObject(0)
+                        .getString("href"));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

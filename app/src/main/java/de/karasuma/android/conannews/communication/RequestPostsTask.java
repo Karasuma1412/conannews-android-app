@@ -44,45 +44,13 @@ public class RequestPostsTask extends AsyncTask<URL, JSONArray, JSONArray> {
 
         JSONArray jsonArray = JSONHandler.createJSONArrayFromConnection(con);
         bitmaps = new ArrayList();
-
-        //create post thumbnails
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String href = jsonObject.getJSONObject("_links")
-                        .getJSONArray("wp:featuredmedia")
-                        .getJSONObject(0)
-                        .getString("href");
-
-                HttpsURLConnection httpsURLConnection = HTTPRequester.makeHTTPRequest(href);
-
-                if (httpsURLConnection == null) {
-                    return null;
-                }
-
-                jsonObject = JSONHandler.createJSONObjectFromConnection(httpsURLConnection);
-                URL url = new URL(jsonObject.getString("source_url"));
-
-
-                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                bitmaps.add(bmp);
-                Log.v("RequestPostsTask", bmp.toString());
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         return jsonArray;
     }
 
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
         super.onPostExecute(jsonArray);
-        JSONHandler.createPosts(jsonArray, bitmaps);
+        JSONHandler.createPosts(jsonArray, mainActivity);
         mainActivity.updatePosts();
     }
 }
