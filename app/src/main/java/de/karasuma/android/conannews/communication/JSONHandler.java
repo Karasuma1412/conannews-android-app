@@ -48,7 +48,16 @@ class JSONHandler {
                 String content = jsonObject.getJSONObject("content").getString("rendered");
                 content = Jsoup.parse(content).text();
 
-                Post post = new Post(title, content);
+                String summary = jsonObject.getJSONObject("excerpt").getString("rendered");
+                summary = Jsoup.parse(summary).text();
+
+                String date = jsonObject.getString("date");
+
+                /*
+                 * need request for author
+                 */
+
+                Post post = new Post(title, content, summary, date);
                 Model.getInstance().getPosts().add(post);
 
                 RequestPostCoverTask task = new RequestPostCoverTask(mainActivity, post);

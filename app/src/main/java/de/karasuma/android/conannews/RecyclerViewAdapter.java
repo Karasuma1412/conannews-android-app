@@ -34,6 +34,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull PostsViewHolder postsViewHolder, int i) {
         postsViewHolder.title.setText(posts.get(i).getTitle());
         postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
+        postsViewHolder.published.setText(posts.get(i).getDate());
+        postsViewHolder.summary.setText(posts.get(i).getSummary());
     }
 
     @Override
@@ -49,15 +51,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public static class PostsViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView title;
-        TextView content;
         ImageView cover;
+        TextView summary;
+        TextView published;
 
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.card_view);
             title = itemView.findViewById(R.id.title);
-            content = itemView.findViewById(R.id.content);
             cover = itemView.findViewById(R.id.cover);
+            summary = itemView.findViewById(R.id.summary);
+            published = itemView.findViewById(R.id.published);
         }
     }
 
