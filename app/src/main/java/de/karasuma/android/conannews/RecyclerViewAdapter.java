@@ -33,7 +33,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull PostsViewHolder postsViewHolder, int i) {
         postsViewHolder.title.setText(posts.get(i).getTitle());
-        postsViewHolder.content.setText(posts.get(i).getContent());
         postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
     }
 
