@@ -1,6 +1,4 @@
-package de.karasuma.android.conannews.communication;
-
-import android.graphics.Bitmap;
+package de.karasuma.android.conannews.communication.wpapi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,7 +8,6 @@ import org.jsoup.Jsoup;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 

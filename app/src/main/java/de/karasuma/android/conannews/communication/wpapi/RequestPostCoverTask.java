@@ -1,4 +1,4 @@
-package de.karasuma.android.conannews.communication;
+package de.karasuma.android.conannews.communication.wpapi;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

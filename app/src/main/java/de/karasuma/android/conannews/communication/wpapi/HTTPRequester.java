@@ -1,4 +1,4 @@
-package de.karasuma.android.conannews.communication;
+package de.karasuma.android.conannews.communication.wpapi;
 
 import java.io.IOException;
 import java.net.ProtocolException;

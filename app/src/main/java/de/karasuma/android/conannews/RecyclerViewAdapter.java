@@ -38,7 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull PostsViewHolder postsViewHolder, final int i) {
         postsViewHolder.title.setText(posts.get(i).getTitle());
         postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
-        postsViewHolder.published.setText(posts.get(i).getDate());
+        postsViewHolder.published.setText(posts.get(i).getPublished());
         postsViewHolder.summary.setText(posts.get(i).getSummary());
         postsViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

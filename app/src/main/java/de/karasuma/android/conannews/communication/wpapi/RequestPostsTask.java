@@ -1,17 +1,10 @@
-package de.karasuma.android.conannews.communication;
+package de.karasuma.android.conannews.communication.wpapi;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 

@@ -1,12 +1,12 @@
 package de.karasuma.android.conannews;
 
+import de.karasuma.android.conannews.communication.html.RequestPostsTask;
 import de.karasuma.android.conannews.data.*;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import de.karasuma.android.conannews.communication.RequestPostsTask;
 
 public class MainActivity extends AppCompatActivity {
 
