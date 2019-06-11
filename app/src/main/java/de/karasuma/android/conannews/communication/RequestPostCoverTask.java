@@ -37,7 +37,11 @@ class RequestPostCoverTask extends AsyncTask<String, Integer, Bitmap> {
         JSONObject jsonObject = JSONHandler.createJSONObjectFromConnection(httpsURLConnection);
         URL url = null;
         try {
-            url = new URL(jsonObject.getString("source_url"));
+            url = new URL(jsonObject
+                    .getJSONObject("media_details")
+                    .getJSONObject("sizes")
+                    .getJSONObject("thumbnail")
+                    .getString("source_url"));
             Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             return bmp;
         } catch (MalformedURLException e) {

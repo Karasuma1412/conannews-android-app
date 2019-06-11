@@ -1,8 +1,10 @@
 package de.karasuma.android.conannews;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +18,11 @@ import de.karasuma.android.conannews.data.Post;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.PostsViewHolder> {
 
     private final List<Post> posts;
+    private final MainActivity mainActivity;
 
-    public RecyclerViewAdapter (List<Post> posts) {
+    public RecyclerViewAdapter(List<Post> posts, MainActivity mainActivity) {
         this.posts = posts;
+        this.mainActivity = mainActivity;
     }
 
     @NonNull
@@ -31,11 +35,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostsViewHolder postsViewHolder, int i) {
+    public void onBindViewHolder(@NonNull PostsViewHolder postsViewHolder, final int i) {
         postsViewHolder.title.setText(posts.get(i).getTitle());
         postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
         postsViewHolder.published.setText(posts.get(i).getDate());
         postsViewHolder.summary.setText(posts.get(i).getSummary());
+        postsViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v("ADAPTER", posts.get(i).getContent());
+                Intent intent = new Intent(mainActivity, PostActivity.class);
+                intent.putExtra("content", posts.get(i).getContent());
+                intent.putExtra("title", posts.get(i).getTitle());
+                mainActivity.startActivity(intent);
+            }
+        });
     }
 
     @Override

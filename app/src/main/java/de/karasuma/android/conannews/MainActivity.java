@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         RequestPostsTask task = new RequestPostsTask(this);
         task.execute();
 
-        recyclerViewAdapter = new RecyclerViewAdapter(Model.getInstance().getPosts());
+        recyclerViewAdapter = new RecyclerViewAdapter(Model.getInstance().getPosts(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
