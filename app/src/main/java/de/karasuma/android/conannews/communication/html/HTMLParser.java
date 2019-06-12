@@ -135,7 +135,7 @@ class HTMLParser {
 
         //get article title
         String title = articleElement.getElementsByClass("entry-title").first().text();
-        TextView titleView = new TextView(postActivity);
+        TextView titleView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_title, view, false);
         titleView.setText(title);
         view.addView(titleView);
 
