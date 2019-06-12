@@ -140,23 +140,22 @@ class HTMLParser {
         view.addView(titleView);
 
         //date and author
-        LinearLayout articleInfoLayout = new LinearLayout(postActivity);
-        articleInfoLayout.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout articleInfoLayout = (LinearLayout) postActivity.getLayoutInflater().inflate(R.layout.article_info, view, false);
+        TextView publishedView = (TextView) articleInfoLayout.getChildAt(0);
+        TextView authorView = (TextView) articleInfoLayout.getChildAt(1);
 
         String published = articleElement.getElementsByClass("entry-date published").first().text();
-        TextView publishedView = new TextView(postActivity);
         publishedView.setText(published);
-        articleInfoLayout.addView(publishedView);
 
         String author = articleElement.getElementsByClass("url fn n").first().text();
-        TextView authorView = new TextView(postActivity);
         authorView.setText(author);
-        articleInfoLayout.addView(authorView);
+
+        view.addView(articleInfoLayout);
 
         //content
         //createArticle(articleElement, )
 
-        view.addView(articleInfoLayout);
+
 
         Elements paragraphs = articleElement.select("p");
         StringBuilder builder = new StringBuilder();
