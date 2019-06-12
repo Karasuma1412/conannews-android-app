@@ -3,6 +3,9 @@ package de.karasuma.android.conannews.communication.html;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,6 +18,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import de.karasuma.android.conannews.PostActivity;
 import de.karasuma.android.conannews.data.Model;
 import de.karasuma.android.conannews.data.Post;
 
@@ -79,14 +83,43 @@ class HTMLParser {
         return null;
     }
 
-    public static Post parseArticle(Element articleElement, Post post) {
+    public static View parseArticle(Element articleElement, PostActivity postActivity) {
+        LinearLayout view = new LinearLayout(postActivity);
+        view.setOrientation(LinearLayout.VERTICAL);
+
+        //get article tag
+        String tag = articleElement.getElementsByAttributeValue("rel", "category tag").text();
+        TextView tagView = new TextView(postActivity);
+        tagView.setText(tag);
+        view.addView(tagView);
+
+        //get article title
+        String title = articleElement.getElementsByClass("entry-title").first().text();
+        TextView titleView = new TextView(postActivity);
+        titleView.setText(title);
+        view.addView(titleView);
+
+        //
+        LinearLayout articleInfoLayout = new LinearLayout(postActivity);
+
+        String published = articleElement.getElementsByClass("entry-date published").first().text();
+        TextView publishedView = new TextView(postActivity);
+        publishedView.setText(published);
+        articleInfoLayout.addView(publishedView);
+
+        String author = articleElement.getElementsByClass("url fn n").first().text();
+        TextView authorView = new TextView(postActivity);
+        authorView.setText(author);
+        articleInfoLayout.addView(authorView);
+
+        view.addView(articleInfoLayout);
+
         Elements paragraphs = articleElement.select("p");
         StringBuilder builder = new StringBuilder();
         for (Element paragraphElement : paragraphs) {
             builder.append(paragraphElement.text() + "\n\n");
         }
-        post.setContent(builder.toString());
-        return post;
+        return view;
     }
 
     public void parsePosts(BufferedReader br) throws IOException {
