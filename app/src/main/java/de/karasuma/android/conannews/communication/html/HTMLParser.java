@@ -101,6 +101,7 @@ class HTMLParser {
 
         //
         LinearLayout articleInfoLayout = new LinearLayout(postActivity);
+        articleInfoLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         String published = articleElement.getElementsByClass("entry-date published").first().text();
         TextView publishedView = new TextView(postActivity);
