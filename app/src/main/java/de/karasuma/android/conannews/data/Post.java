@@ -3,6 +3,7 @@ package de.karasuma.android.conannews.data;
 import android.graphics.Bitmap;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Post {
     private String author;
@@ -12,6 +13,7 @@ public class Post {
     private String content;
     private Bitmap bitmap;
     private String url;
+    private ArrayList<Category> categories = new ArrayList<>();
 
     public Post(String title, String date, String author, String summary) {
         this.title = title;
@@ -80,5 +82,13 @@ public class Post {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 }

@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
         android:layout_margin="16dp"
         android:foreground="?android:attr/selectableItemBackground">
 
@@ -25,8 +26,17 @@
                 android:adjustViewBounds="true"
                 android:layout_height="wrap_content"/>
 
+            <LinearLayout
+                android:id="@+id/categories"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/title"
+                android:layout_marginLeft="8dp"
                 android:layout_alignBottom="@+id/cover"
                 android:layout_width="wrap_content"
                 android:layout_centerHorizontal="@+id/cover"
@@ -36,7 +46,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_margin="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,6 +57,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
                     android:id="@+id/author"/>
 
             </LinearLayout>
@@ -53,7 +65,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/summary"/>
+                android:id="@+id/summary"
+                android:layout_margin="8dp"/>
 
         </LinearLayout>
 

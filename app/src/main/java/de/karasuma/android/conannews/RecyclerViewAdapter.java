@@ -1,6 +1,7 @@
 package de.karasuma.android.conannews;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 import de.karasuma.android.conannews.communication.html.OpenPostTask;
+import de.karasuma.android.conannews.data.Category;
 import de.karasuma.android.conannews.data.Post;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.PostsViewHolder> {
@@ -41,6 +44,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         postsViewHolder.published.setText(posts.get(i).getPublished());
         postsViewHolder.summary.setText(posts.get(i).getSummary());
         postsViewHolder.author.setText(posts.get(i).getAuthor());
+
+        postsViewHolder.categories.removeAllViews();
+
+        for (Category category : posts.get(i).getCategories()) {
+            CardView cardView;
+            cardView = (CardView) mainActivity.getLayoutInflater().inflate(R.layout.category_item, postsViewHolder.cardView, false);
+            TextView categoryText = (TextView) cardView.getChildAt(0);
+            categoryText.setText(category.getName());
+            System.out.println(category.getColor());
+            categoryText.setBackgroundColor(Color.parseColor(category.getColor()));
+            postsViewHolder.categories.addView(cardView);
+        }
         postsViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +85,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView summary;
         TextView published;
         TextView author;
+        LinearLayout categories;
 
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             summary = itemView.findViewById(R.id.summary);
             published = itemView.findViewById(R.id.published);
             author = itemView.findViewById(R.id.author);
+            categories = itemView.findViewById(R.id.categories);
         }
     }
 

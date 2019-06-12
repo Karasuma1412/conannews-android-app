@@ -17,10 +17,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Locale;
 
 import de.karasuma.android.conannews.PostActivity;
 import de.karasuma.android.conannews.data.Model;
 import de.karasuma.android.conannews.data.Post;
+import de.karasuma.android.conannews.data.Category;
 
 class HTMLParser {
     public static void parsePost(Element element) {
@@ -31,11 +34,35 @@ class HTMLParser {
         post.setAuthor(parseAuthor(element));
         post.setSummary(parseSummary(element));
         post.setUrl(parseURL(element));
+        post.setCategories(parseCategory(element, post));
+        parseCategoryColor(element, post);
 
 //        OpenPostTask task = new OpenPostTask(post);
 //        task.execute();
 
         Model.getInstance().getPosts().add(post);
+    }
+
+    private static void parseCategoryColor(Element element, Post post) {
+        Elements categoryElements = element.getElementsByAttributeValue("rel", "category tag");
+        for (int i = 0; i < categoryElements.size(); i++) {
+            Element categoryTag = categoryElements.get(i);
+            String style = categoryTag.attr("style");
+            style = style.substring(11);
+            post.getCategories().get(i).setColor(style);
+            System.out.println(i + style);
+        }
+    }
+
+    private static ArrayList<Category> parseCategory(Element element, Post post) {
+        ArrayList<Category> categories = new ArrayList<>();
+        Elements categoryElements = element.getElementsByAttributeValue("rel", "category tag");
+        for (Element e : categoryElements) {
+            Category category = new Category();
+            category.setName(e.text());
+            categories.add(category);
+        }
+        return categories;
     }
 
     private static String parseURL(Element element) {
@@ -99,7 +126,7 @@ class HTMLParser {
         titleView.setText(title);
         view.addView(titleView);
 
-        //
+        //date and author
         LinearLayout articleInfoLayout = new LinearLayout(postActivity);
         articleInfoLayout.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -112,6 +139,9 @@ class HTMLParser {
         TextView authorView = new TextView(postActivity);
         authorView.setText(author);
         articleInfoLayout.addView(authorView);
+
+        //content
+        //createArticle(articleElement, )
 
         view.addView(articleInfoLayout);
 
