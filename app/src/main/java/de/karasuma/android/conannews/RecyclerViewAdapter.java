@@ -44,8 +44,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         postsViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OpenPostTask task = new OpenPostTask(posts.get(i), mainActivity);
-                task.execute();
+                Intent intent = new Intent(mainActivity, PostActivity.class);
+                intent.putExtra("url", posts.get(i).getUrl());
+                mainActivity.startActivity(intent);
+//                OpenPostTask task = new OpenPostTask(posts.get(i), mainActivity);
+//                task.execute();
             }
         });
     }

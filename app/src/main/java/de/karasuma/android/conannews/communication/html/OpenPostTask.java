@@ -43,9 +43,5 @@ public class OpenPostTask extends AsyncTask<URL, Integer, Post> {
     @Override
     protected void onPostExecute(Post post) {
         super.onPostExecute(post);
-        Intent intent = new Intent(mainActivity, PostActivity.class);
-        intent.putExtra("content", post.getContent());
-        intent.putExtra("title", post.getTitle());
-        mainActivity.startActivity(intent);
     }
 }
