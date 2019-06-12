@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import de.karasuma.android.conannews.communication.html.OpenPostTask;
 import de.karasuma.android.conannews.data.Category;
 import de.karasuma.android.conannews.data.Post;
 
@@ -41,9 +40,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull PostsViewHolder postsViewHolder, final int i) {
         postsViewHolder.title.setText(posts.get(i).getTitle());
         postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
-        postsViewHolder.published.setText(posts.get(i).getPublished());
         postsViewHolder.summary.setText(posts.get(i).getSummary());
-        postsViewHolder.author.setText(posts.get(i).getAuthor());
+
+        //author and date
+        postsViewHolder.postInfo.removeAllViews();
+        LinearLayout postInfo = (LinearLayout) mainActivity.getLayoutInflater().inflate(R.layout.article_info, postsViewHolder.postInfo, false);
+        TextView publishedView = (TextView) postInfo.getChildAt(0);
+        publishedView.setText(posts.get(i).getPublished());
+
+        TextView authorView = (TextView) postInfo.getChildAt(1);
+        authorView.setText(posts.get(i).getAuthor());
+
+        postsViewHolder.postInfo.addView(postInfo);
 
         postsViewHolder.categories.removeAllViews();
 
@@ -82,8 +90,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView title;
         ImageView cover;
         TextView summary;
-        TextView published;
-        TextView author;
+        LinearLayout postInfo;
         LinearLayout categories;
 
         public PostsViewHolder(@NonNull View itemView) {
@@ -92,8 +99,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             title = itemView.findViewById(R.id.title);
             cover = itemView.findViewById(R.id.cover);
             summary = itemView.findViewById(R.id.summary);
-            published = itemView.findViewById(R.id.published);
-            author = itemView.findViewById(R.id.author);
+            postInfo = itemView.findViewById(R.id.post_info);
             categories = itemView.findViewById(R.id.categories);
         }
     }

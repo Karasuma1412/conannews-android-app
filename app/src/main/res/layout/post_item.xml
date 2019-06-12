@@ -44,22 +44,10 @@
                 android:layout_height="wrap_content" />
 
             <LinearLayout
+                android:id="@+id/post_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/published"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:id="@+id/author"/>
-
+                android:orientation="horizontal">
             </LinearLayout>
 
             <TextView
