@@ -52,7 +52,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cardView = (CardView) mainActivity.getLayoutInflater().inflate(R.layout.category_item, postsViewHolder.cardView, false);
             TextView categoryText = (TextView) cardView.getChildAt(0);
             categoryText.setText(category.getName());
-            System.out.println(category.getColor());
             categoryText.setBackgroundColor(Color.parseColor(category.getColor()));
             postsViewHolder.categories.addView(cardView);
         }

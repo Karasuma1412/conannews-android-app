@@ -2,6 +2,8 @@ package de.karasuma.android.conannews.communication.html;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,9 +20,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import de.karasuma.android.conannews.PostActivity;
+import de.karasuma.android.conannews.R;
 import de.karasuma.android.conannews.data.Model;
 import de.karasuma.android.conannews.data.Post;
 import de.karasuma.android.conannews.data.Category;
@@ -50,7 +52,6 @@ class HTMLParser {
             String style = categoryTag.attr("style");
             style = style.substring(11);
             post.getCategories().get(i).setColor(style);
-            System.out.println(i + style);
         }
     }
 
@@ -115,10 +116,22 @@ class HTMLParser {
         view.setOrientation(LinearLayout.VERTICAL);
 
         //get article tag
-        String tag = articleElement.getElementsByAttributeValue("rel", "category tag").text();
-        TextView tagView = new TextView(postActivity);
-        tagView.setText(tag);
-        view.addView(tagView);
+        LinearLayout categories = new LinearLayout(postActivity);
+        Elements categoriesElement = articleElement.getElementsByAttributeValue("rel", "category tag");
+        for (Element e : categoriesElement) {
+            CardView cardView;
+            cardView = (CardView) postActivity.getLayoutInflater().inflate(R.layout.category_item, categories, false);
+
+            String name = e.text();
+            String style = e.attr("style");
+            String color = style.substring(11);
+
+            TextView categoryText = (TextView) cardView.getChildAt(0);
+            categoryText.setText(name);
+            categoryText.setBackgroundColor(Color.parseColor(color));
+            categories.addView(cardView);
+        }
+        view.addView(categories);
 
         //get article title
         String title = articleElement.getElementsByClass("entry-title").first().text();
