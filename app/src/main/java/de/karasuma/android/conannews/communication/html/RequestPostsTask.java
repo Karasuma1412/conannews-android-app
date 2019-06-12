@@ -2,6 +2,7 @@ package de.karasuma.android.conannews.communication.html;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.jsoup.Jsoup;
@@ -41,13 +42,10 @@ public class RequestPostsTask extends AsyncTask<String, Integer, JSONArray> {
         return null;
     }
 
-    private void parsePost(Element element) {
-
-    }
-
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
         super.onPostExecute(jsonArray);
+        mainActivity.getProgressCircular().setVisibility(View.INVISIBLE);
         mainActivity.updatePosts();
     }
 }

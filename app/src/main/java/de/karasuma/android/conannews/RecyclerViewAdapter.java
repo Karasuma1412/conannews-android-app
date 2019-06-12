@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import de.karasuma.android.conannews.communication.html.OpenPostTask;
 import de.karasuma.android.conannews.data.Post;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.PostsViewHolder> {
@@ -40,14 +40,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
         postsViewHolder.published.setText(posts.get(i).getPublished());
         postsViewHolder.summary.setText(posts.get(i).getSummary());
+        postsViewHolder.author.setText(posts.get(i).getAuthor());
         postsViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("ADAPTER", posts.get(i).getContent());
-                Intent intent = new Intent(mainActivity, PostActivity.class);
-                intent.putExtra("content", posts.get(i).getContent());
-                intent.putExtra("title", posts.get(i).getTitle());
-                mainActivity.startActivity(intent);
+                OpenPostTask task = new OpenPostTask(posts.get(i), mainActivity);
+                task.execute();
             }
         });
     }
@@ -68,6 +66,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView cover;
         TextView summary;
         TextView published;
+        TextView author;
 
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +75,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cover = itemView.findViewById(R.id.cover);
             summary = itemView.findViewById(R.id.summary);
             published = itemView.findViewById(R.id.published);
+            author = itemView.findViewById(R.id.author);
         }
     }
 

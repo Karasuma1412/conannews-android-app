@@ -6,18 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
+    private View progressCircular;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        progressCircular = findViewById(R.id.progress_circular);
         recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -37,5 +40,9 @@ public class MainActivity extends AppCompatActivity {
         //recyclerViewAdapter = new RecyclerViewAdapter(Model.getInstance().getPosts());
         //recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    public View getProgressCircular() {
+        return progressCircular;
     }
 }

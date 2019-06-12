@@ -21,8 +21,47 @@ import de.karasuma.android.conannews.data.Post;
 class HTMLParser {
     public static void parsePost(Element element) {
         Post post = new Post();
-        Bitmap bmp = parseThumbnail(element);
-        post.setBitmap(bmp);
+        post.setBitmap(parseThumbnail(element));
+        post.setTitle(parseTitle(element));
+        post.setPublished(parsePublished(element));
+        post.setAuthor(parseAuthor(element));
+        post.setSummary(parseSummary(element));
+        post.setUrl(parseURL(element));
+
+//        OpenPostTask task = new OpenPostTask(post);
+//        task.execute();
+
+        Model.getInstance().getPosts().add(post);
+    }
+
+    private static String parseURL(Element element) {
+        Elements entryContentClearfix = element.getElementsByClass("entry-content clearfix");
+        Element urlElement = entryContentClearfix.select("a").first();
+        return urlElement.absUrl("href");
+    }
+
+    private static String parseSummary(Element element) {
+        Elements entryContentClearfix = element.getElementsByClass("entry-content clearfix");
+        Element summaryElement = entryContentClearfix.select("p").first();
+        return summaryElement.text();
+    }
+
+    private static String parseAuthor(Element element) {
+        Elements authorVCard = element.getElementsByClass("author vcard");
+        Element authorElement = authorVCard.select("a").first();
+        return authorElement.text();
+    }
+
+    private static String parsePublished(Element element) {
+        Elements entryDatePublished = element.getElementsByClass("entry-date published");
+        return entryDatePublished.text();
+    }
+
+    private static String parseTitle(Element element) {
+        Elements entryTitle = element.getElementsByClass("entry-title");
+        Element titleElement = entryTitle.select("a").first();
+        String title = titleElement.text();
+        return title;
     }
 
     private static Bitmap parseThumbnail(Element element) {
@@ -38,6 +77,16 @@ class HTMLParser {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static Post parseArticle(Element articleElement, Post post) {
+        Elements paragraphs = articleElement.select("p");
+        StringBuilder builder = new StringBuilder();
+        for (Element paragraphElement : paragraphs) {
+            builder.append(paragraphElement.text() + "\n\n");
+        }
+        post.setContent(builder.toString());
+        return post;
     }
 
     public void parsePosts(BufferedReader br) throws IOException {
