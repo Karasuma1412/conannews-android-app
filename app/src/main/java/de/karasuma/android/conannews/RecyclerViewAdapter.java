@@ -52,6 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         authorView.setText(posts.get(i).getAuthor());
 
         postsViewHolder.postInfo.addView(postInfo);
+        //author and date end
 
         postsViewHolder.categories.removeAllViews();
 
