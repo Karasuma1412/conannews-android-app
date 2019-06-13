@@ -187,14 +187,21 @@ class HTMLParser {
 
                 ClickableSpan linkClickableSpan = new ClickableSpan() {
 
-                    boolean isClicked = false;
-
                     @Override
                     public void onClick(View widget) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(url));
-                        postActivity.startActivity(intent);
-                        isClicked = true;
+                        if (isConannewsLink(url)) {
+                            Intent intent = new Intent(postActivity, PostActivity.class);
+                            intent.putExtra("url", url);
+                            postActivity.startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(url));
+                            postActivity.startActivity(intent);
+                        }
+                    }
+
+                    private boolean isConannewsLink(String url) {
+                        return url.contains("conannews.org");
                     }
 
                     @Override
