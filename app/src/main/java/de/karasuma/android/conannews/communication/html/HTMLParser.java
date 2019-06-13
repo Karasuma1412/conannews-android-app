@@ -175,15 +175,12 @@ class HTMLParser {
 
             for (Element img : e.select("img")) {
                 String imageURL = img.absUrl("src");
-                System.out.println(imageURL);
             }
             for (Element link : e.select("a")) {
                 final String url = link.absUrl("href");
                 String linkText = link.text();
                 int startIndex = e.text().indexOf(linkText);
-                System.out.println(startIndex);
                 int endIndex = startIndex + linkText.length();
-                System.out.println(endIndex);
 
                 ClickableSpan linkClickableSpan = new ClickableSpan() {
 
