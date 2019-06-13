@@ -1,13 +1,25 @@
 package de.karasuma.android.conannews.communication.html;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -111,7 +123,7 @@ class HTMLParser {
         return null;
     }
 
-    public static View parseArticle(Element articleElement, PostActivity postActivity) {
+    public static View parseArticle(Element articleElement, final PostActivity postActivity) {
         LinearLayout view = new LinearLayout(postActivity);
         view.setOrientation(LinearLayout.VERTICAL);
 
@@ -153,6 +165,62 @@ class HTMLParser {
         view.addView(articleInfoLayout);
 
         //content
+        Element contentElements = articleElement.getElementsByClass("entry-content clearfix").first();
+        Elements paragraphElements = contentElements.select("p");
+
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+
+        for (Element e : paragraphElements) {
+            SpannableString spannableString = new SpannableString(e.text());
+
+            for (Element img : e.select("img")) {
+                String imageURL = img.absUrl("src");
+                System.out.println(imageURL);
+            }
+            for (Element link : e.select("a")) {
+                final String url = link.absUrl("href");
+                String linkText = link.text();
+                int startIndex = e.text().indexOf(linkText);
+                System.out.println(startIndex);
+                int endIndex = startIndex + linkText.length();
+                System.out.println(endIndex);
+
+                ClickableSpan linkClickableSpan = new ClickableSpan() {
+
+                    boolean isClicked = false;
+
+                    @Override
+                    public void onClick(View widget) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(url));
+                        postActivity.startActivity(intent);
+                        isClicked = true;
+                    }
+
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        super.updateDrawState(ds);
+                        ds.setColor(postActivity.getResources().getColor(R.color.colorLink));
+                        ds.setUnderlineText(true);
+                    }
+                };
+                spannableString.setSpan(linkClickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            spannableStringBuilder.append(spannableString);
+        }
+
+        TextView contentView = new TextView(postActivity);
+        contentView.setText(spannableStringBuilder);
+        contentView.setMovementMethod(LinkMovementMethod.getInstance());
+        view.addView(contentView);
+
+//        for (Element element : contentElements.select("p")) {
+//            System.out.println(element.html());
+//            TextView contentView = new TextView(postActivity);
+//            contentView.setText(element.text());
+//            view.addView(contentView);
+//        }
+
         //createArticle(articleElement, )
 
 
