@@ -17,6 +17,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -174,7 +175,18 @@ class HTMLParser {
             SpannableString spannableString = new SpannableString(e.text());
 
             for (Element img : e.select("img")) {
-                String imageURL = img.absUrl("src");
+                String imageURLString = img.absUrl("src");
+                try {
+                    URL imageURL = new URL(imageURLString);
+                    Bitmap image = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+                    ImageView imageView = new ImageView(postActivity);
+                    imageView.setImageBitmap(image);
+                    view.addView(imageView);
+                } catch (MalformedURLException exception) {
+                    exception.printStackTrace();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
             for (Element link : e.select("a")) {
                 final String url = link.absUrl("href");
