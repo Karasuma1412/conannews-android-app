@@ -213,10 +213,10 @@ class HTMLParser {
             spannableStringBuilder.append(spannableString);
         }
 
-        TextView contentView = new TextView(postActivity);
-        contentView.setText(spannableStringBuilder);
-        contentView.setMovementMethod(LinkMovementMethod.getInstance());
-        view.addView(contentView);
+        TextView paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, view, false);
+        paragraphView.setText(spannableStringBuilder);
+        paragraphView.setMovementMethod(LinkMovementMethod.getInstance());
+        view.addView(paragraphView);
 
 //        for (Element element : contentElements.select("p")) {
 //            System.out.println(element.html());
