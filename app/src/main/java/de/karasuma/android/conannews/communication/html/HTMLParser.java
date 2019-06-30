@@ -166,6 +166,7 @@ class HTMLParser {
         view.addView(articleInfoLayout);
 
         //content
+        LinearLayout contentLayout = (LinearLayout) postActivity.getLayoutInflater().inflate(R.layout.article_content, view, false);
         Element contentElements = articleElement.getElementsByClass("entry-content clearfix").first();
         Elements paragraphElements = contentElements.select("p");
 
@@ -181,7 +182,7 @@ class HTMLParser {
                     Bitmap image = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
                     ImageView imageView = new ImageView(postActivity);
                     imageView.setImageBitmap(image);
-                    view.addView(imageView);
+                    contentLayout.addView(imageView);
                 } catch (MalformedURLException exception) {
                     exception.printStackTrace();
                 } catch (IOException exception) {
@@ -222,13 +223,19 @@ class HTMLParser {
                 };
                 spannableString.setSpan(linkClickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
-            spannableStringBuilder.append(spannableString);
+
+            TextView paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, null, false);
+            paragraphView.setText(spannableString);
+            paragraphView.setMovementMethod(LinkMovementMethod.getInstance());
+            contentLayout.addView(paragraphView);
         }
 
-        TextView paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, view, false);
-        paragraphView.setText(spannableStringBuilder);
-        paragraphView.setMovementMethod(LinkMovementMethod.getInstance());
-        view.addView(paragraphView);
+        view.addView(contentLayout);
+
+//        TextView paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, view, false);
+//        paragraphView.setText(spannableStringBuilder);
+//        paragraphView.setMovementMethod(LinkMovementMethod.getInstance());
+//        view.addView(paragraphView);
 
 //        for (Element element : contentElements.select("p")) {
 //            System.out.println(element.html());
