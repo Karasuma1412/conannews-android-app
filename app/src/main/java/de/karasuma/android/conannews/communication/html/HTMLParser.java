@@ -126,7 +126,6 @@ class HTMLParser {
 
     public static View parseArticle(Element articleElement, final PostActivity postActivity) {
         LinearLayout view = (LinearLayout) postActivity.getLayoutInflater().inflate(R.layout.article_layout, null, false);;
-        view.setBackgroundColor(Color.RED);
         view.setOrientation(LinearLayout.VERTICAL);
 
         //get article tag
@@ -182,7 +181,6 @@ class HTMLParser {
                     URL imageURL = new URL(imageURLString);
                     Bitmap image = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
                     ImageView imageView = (ImageView) postActivity.getLayoutInflater().inflate(R.layout.article_image, null, false);
-//                    ImageView imageView = new ImageView(postActivity);
                     imageView.setImageBitmap(image);
                     contentLayout.addView(imageView);
                 } catch (MalformedURLException exception) {
