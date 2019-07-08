@@ -63,6 +63,12 @@ class HTMLParser {
         for (int i = 0; i < categoryElements.size(); i++) {
             Element categoryTag = categoryElements.get(i);
             String style = categoryTag.attr("style");
+
+            if (style.isEmpty()) {
+                post.getCategories().get(i).setColor("#123456");
+                return;
+            }
+
             style = style.substring(11);
             post.getCategories().get(i).setColor(style);
         }
@@ -76,6 +82,7 @@ class HTMLParser {
             category.setName(e.text());
             categories.add(category);
         }
+
         return categories;
     }
 

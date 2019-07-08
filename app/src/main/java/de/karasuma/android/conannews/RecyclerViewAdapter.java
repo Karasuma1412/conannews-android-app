@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,10 +18,13 @@ import java.util.List;
 import de.karasuma.android.conannews.data.Category;
 import de.karasuma.android.conannews.data.Post;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.PostsViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<Post> posts;
     private final MainActivity mainActivity;
+
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
 
     public RecyclerViewAdapter(List<Post> posts, MainActivity mainActivity) {
         this.posts = posts;
@@ -29,15 +33,41 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @NonNull
     @Override
-    public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.post_item
-                , viewGroup, false);
-        PostsViewHolder viewHolder = new PostsViewHolder(view);
-        return viewHolder;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        if (viewType == VIEW_TYPE_ITEM) {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.post_item
+                    , viewGroup, false);
+            PostsViewHolder viewHolder = new PostsViewHolder(view);
+            return viewHolder;
+        } else {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.loading_item
+                    , viewGroup, false);
+            LoadingViewHolder viewHolder = new LoadingViewHolder(view);
+            return viewHolder;
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostsViewHolder postsViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+
+        if (viewHolder instanceof PostsViewHolder) {
+            populatePostsRows((PostsViewHolder) viewHolder, i);
+        } else if (viewHolder instanceof LoadingViewHolder) {
+            showLoadingViewHolder((LoadingViewHolder) viewHolder, i);
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return posts.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+    }
+
+    private void showLoadingViewHolder(LoadingViewHolder viewHolder, int i) {
+
+    }
+
+    private void populatePostsRows(PostsViewHolder postsViewHolder, final int i) {
         postsViewHolder.title.setText(posts.get(i).getTitle());
         postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
         postsViewHolder.summary.setText(posts.get(i).getSummary());
@@ -102,6 +132,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             summary = itemView.findViewById(R.id.summary);
             postInfo = itemView.findViewById(R.id.post_info);
             categories = itemView.findViewById(R.id.categories);
+        }
+    }
+
+    private class LoadingViewHolder extends RecyclerView.ViewHolder {
+
+        ProgressBar progressBar;
+
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+            progressBar = itemView.findViewById(R.id.progressBar);
         }
     }
 

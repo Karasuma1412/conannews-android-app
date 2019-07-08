@@ -1,7 +1,6 @@
 package de.karasuma.android.conannews.communication.html;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 
 import org.json.JSONArray;
@@ -10,12 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import de.karasuma.android.conannews.MainActivity;
 
 public class RequestPostsTask extends AsyncTask<String, Integer, JSONArray> {
@@ -30,7 +24,7 @@ public class RequestPostsTask extends AsyncTask<String, Integer, JSONArray> {
     @Override
     protected JSONArray doInBackground(String... strings) {
         try {
-            Document doc = Jsoup.connect(conanNewsUrl).get();
+            Document doc = Jsoup.connect(strings[0]).get();
             Elements elements = doc.body().select("article");
 
             for (Element element : elements) {
