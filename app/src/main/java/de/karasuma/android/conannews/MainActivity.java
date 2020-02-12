@@ -2,6 +2,8 @@ package de.karasuma.android.conannews;
 
 import de.karasuma.android.conannews.communication.html.RequestPostsTask;
 import de.karasuma.android.conannews.data.*;
+import de.karasuma.android.conannews.menu.HomeMenuAction;
+import de.karasuma.android.conannews.menu.MenuAction;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -9,9 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -26,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     int pageIndex = 1;
     String conanNewsURL = "https://conannews.org/";
     String pageURL = "page/";
+
+    private HashMap<Integer, MenuAction> menuActionMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +98,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loadNextPosts();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        menuActionMap = new HashMap<>();
+        menuActionMap.put(R.id.home_menu_item, new HomeMenuAction(this));
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuAction menuAction = menuActionMap.get(item.getItemId());
+
+        if (menuAction == null) {
+            Log.e("MainActivity", "invalid menu action");
+            return false;
+        }
+
+        return menuAction.execute();
     }
 
     private void initFakeData() {
