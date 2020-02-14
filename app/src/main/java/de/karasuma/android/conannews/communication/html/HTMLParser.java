@@ -204,6 +204,13 @@ class HTMLParser {
             for (Element img : e.select("img")) {
                 String imageURLString = img.absUrl("src");
                 try {
+                    /*
+                    force image urls to use https
+                     */
+                    if(!imageURLString.contains("https")) {
+                        imageURLString = imageURLString.replace("http", "https");
+                    }
+
                     URL imageURL = new URL(imageURLString);
                     Bitmap image = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
                     ImageView imageView = (ImageView) postActivity.getLayoutInflater().inflate(R.layout.article_image, null, false);

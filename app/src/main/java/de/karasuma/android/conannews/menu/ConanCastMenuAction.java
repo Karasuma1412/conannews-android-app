@@ -19,8 +19,8 @@ public class ConanCastMenuAction implements MenuAction {
     public boolean execute() {
         Log.v(tag, "ConanCastMenuItem clicked");
         String url = "https://conannews.org/category/conancast/";
-        Intent intent = new Intent(activity, PostActivity.class);
-        intent.putExtra("url", url);
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra("filterURL", url);
         activity.startActivity(intent);
         return false;
     }
