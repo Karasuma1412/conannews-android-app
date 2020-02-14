@@ -2,6 +2,7 @@ package de.karasuma.android.conannews;
 
 import de.karasuma.android.conannews.communication.html.RequestPostsTask;
 import de.karasuma.android.conannews.data.*;
+import de.karasuma.android.conannews.menu.CategoryFilterMenuAction;
 import de.karasuma.android.conannews.menu.ConanCastMenuAction;
 import de.karasuma.android.conannews.menu.HomeMenuAction;
 import de.karasuma.android.conannews.menu.MenuAction;
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         menuActionMap = new HashMap<>();
         menuActionMap.put(R.id.home_menu_item, new HomeMenuAction(this));
         menuActionMap.put(R.id.conancast_menu_item, new ConanCastMenuAction(this));
+        menuActionMap.put(R.id.category_filter_menu_item, new CategoryFilterMenuAction(this));
 
         return true;
     }
