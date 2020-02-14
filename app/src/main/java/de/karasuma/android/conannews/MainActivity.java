@@ -116,7 +116,10 @@ public class MainActivity extends AppCompatActivity {
         menuActionMap = new HashMap<>();
         menuActionMap.put(R.id.home_menu_item, new HomeMenuAction(this));
         menuActionMap.put(R.id.conancast_menu_item, new ConanCastMenuAction(this));
-        menuActionMap.put(R.id.category_filter_menu_item, new CategoryFilterMenuAction(this));
+        menuActionMap.put(R.id.category_anime_de_menu_item, new CategoryFilterMenuAction(this, "anime-de"));
+        menuActionMap.put(R.id.category_anime_jp_menu_item, new CategoryFilterMenuAction(this, "anime-jp"));
+        menuActionMap.put(R.id.category_manga_de_menu_item, new CategoryFilterMenuAction(this, "manga-de"));
+        menuActionMap.put(R.id.category_manga_jp_menu_item, new CategoryFilterMenuAction(this, "manga-jp"));
 
         return true;
     }

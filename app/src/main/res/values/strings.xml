@@ -3,4 +3,8 @@
     <string name="home">Home</string>
     <string name="conancast">ConanCast</string>
     <string name="category_filter">Filter</string>
+    <string name="category_anime_de">Anime Deutschland</string>
+    <string name="category_anime_jp">Anime Japan</string>
+    <string name="category_manga_de">Manga Deutschland</string>
+    <string name="category_manga_jp">Manga Japan</string>
 </resources>

@@ -7,10 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.HashMap;
-import java.util.prefs.AbstractPreferences;
 
 import de.karasuma.android.conannews.communication.html.OpenPostTask;
 import de.karasuma.android.conannews.menu.CategoryFilterMenuAction;
@@ -43,7 +41,7 @@ public class PostActivity extends AppCompatActivity {
         menuActionMap = new HashMap<>();
         menuActionMap.put(R.id.home_menu_item, new HomeMenuAction(this));
         menuActionMap.put(R.id.conancast_menu_item, new ConanCastMenuAction(this));
-        menuActionMap.put(R.id.category_filter_menu_item, new CategoryFilterMenuAction(this));
+        menuActionMap.put(R.id.category_filter_menu_item, new CategoryFilterMenuAction(this, "anime-de"));
 
         return true;
     }

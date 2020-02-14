@@ -1,6 +1,7 @@
 package de.karasuma.android.conannews.communication.html;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 
 import org.json.JSONArray;
@@ -16,6 +17,7 @@ public class RequestPostsTask extends AsyncTask<String, Integer, JSONArray> {
 
     private final MainActivity mainActivity;
     private String conanNewsUrl = "https://conannews.org/";
+    private final String tag = "RequestPostsTask_HTML";
 
     public RequestPostsTask(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -28,6 +30,7 @@ public class RequestPostsTask extends AsyncTask<String, Integer, JSONArray> {
             Elements elements = doc.body().select("article");
 
             for (Element element : elements) {
+                Log.v(tag, "parsing post");
                 HTMLParser.parsePost(element);
             }
         } catch (IOException e) {

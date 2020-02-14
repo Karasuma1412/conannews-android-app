@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import de.karasuma.android.conannews.MainActivity;
-import de.karasuma.android.conannews.PostActivity;
 
 public class ConanCastMenuAction implements MenuAction {
     private final Activity activity;
@@ -22,6 +21,6 @@ public class ConanCastMenuAction implements MenuAction {
         Intent intent = new Intent(activity, MainActivity.class);
         intent.putExtra("filterURL", url);
         activity.startActivity(intent);
-        return false;
+        return true;
     }
 }
