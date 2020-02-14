@@ -6,4 +6,9 @@
         android:icon="@drawable/home"
         app:showAsAction="ifRoom">
     </item>
+    <item android:id="@+id/conancast_menu_item"
+        android:title="@string/conancast"
+        android:icon="@drawable/home"
+        app:showAsAction="">
+    </item>
 </menu>

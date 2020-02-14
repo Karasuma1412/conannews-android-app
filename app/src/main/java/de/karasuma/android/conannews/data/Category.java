@@ -3,6 +3,7 @@ package de.karasuma.android.conannews.data;
 public class Category {
     private String name;
     private String color;
+    private String filterURL;
 
     public String getName() {
         return name;
@@ -18,5 +19,13 @@ public class Category {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getFilterURL() {
+        return filterURL;
+    }
+
+    public void setFilterURL(String filterURL) {
+        this.filterURL = filterURL;
     }
 }

@@ -86,12 +86,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         postsViewHolder.categories.removeAllViews();
 
-        for (Category category : posts.get(i).getCategories()) {
+        for (final Category category : posts.get(i).getCategories()) {
             CardView cardView;
             cardView = (CardView) mainActivity.getLayoutInflater().inflate(R.layout.category_item, postsViewHolder.cardView, false);
             TextView categoryText = (TextView) cardView.getChildAt(0);
             categoryText.setText(category.getName());
             categoryText.setBackgroundColor(Color.parseColor(category.getColor()));
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mainActivity, MainActivity.class);
+                    intent.putExtra("filterURL", category.getFilterURL());
+                    mainActivity.startActivity(intent);
+                }
+            });
             postsViewHolder.categories.addView(cardView);
         }
         postsViewHolder.cardView.setOnClickListener(new View.OnClickListener() {

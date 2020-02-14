@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
+import org.jsoup.SerializationException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
@@ -41,16 +42,23 @@ import de.karasuma.android.conannews.data.Post;
 import de.karasuma.android.conannews.data.Category;
 
 class HTMLParser {
+
+    private static String tag = "HTMLParser";
+
     public static void parsePost(Element element) {
         Post post = new Post();
-        post.setBitmap(parseThumbnail(element));
+        try {
+            post.setBitmap(parseThumbnail(element));
+        } catch (SerializationException e) {
+            e.printStackTrace();
+        }
         post.setTitle(parseTitle(element));
         post.setPublished(parsePublished(element));
         post.setAuthor(parseAuthor(element));
         post.setSummary(parseSummary(element));
         post.setUrl(parseURL(element));
         post.setCategories(parseCategory(element, post));
-        parseCategoryColor(element, post);
+        parseCategoryColorAndFilterURL(element, post);
 
 //        OpenPostTask task = new OpenPostTask(post);
 //        task.execute();
@@ -58,11 +66,12 @@ class HTMLParser {
         Model.getInstance().getPosts().add(post);
     }
 
-    private static void parseCategoryColor(Element element, Post post) {
+    private static void parseCategoryColorAndFilterURL(Element element, Post post) {
         Elements categoryElements = element.getElementsByAttributeValue("rel", "category tag");
         for (int i = 0; i < categoryElements.size(); i++) {
             Element categoryTag = categoryElements.get(i);
             String style = categoryTag.attr("style");
+            String filterURL = categoryTag.attr("href");
 
             if (style.isEmpty()) {
                 post.getCategories().get(i).setColor("#123456");
@@ -71,6 +80,7 @@ class HTMLParser {
 
             style = style.substring(11);
             post.getCategories().get(i).setColor(style);
+            post.getCategories().get(i).setFilterURL(filterURL);
         }
     }
 
@@ -116,9 +126,12 @@ class HTMLParser {
         return title;
     }
 
-    private static Bitmap parseThumbnail(Element element) {
+    private static Bitmap parseThumbnail(Element element) throws SerializationException {
         Elements featuredImage = element.getElementsByClass("featured-image");
         Element image = featuredImage.select("img").first();
+        if (image == null) {
+            throw new SerializationException("Article does not have a thumbnail");
+        }
         String imageURLString = image.absUrl("src");
         try {
             URL imageURL = new URL(imageURLString);
@@ -154,7 +167,13 @@ class HTMLParser {
         view.addView(categories);
 
         //get article title
-        String title = articleElement.getElementsByClass("entry-title").first().text();
+        Element titleElement = articleElement.getElementsByClass("entry-title").first();
+        String title = "";
+        if (titleElement != null) {
+            title = titleElement.text();
+        }
+
+
         TextView titleView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_title, view, false);
         titleView.setText(title);
         view.addView(titleView);

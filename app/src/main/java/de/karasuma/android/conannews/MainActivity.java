@@ -2,6 +2,7 @@ package de.karasuma.android.conannews;
 
 import de.karasuma.android.conannews.communication.html.RequestPostsTask;
 import de.karasuma.android.conannews.data.*;
+import de.karasuma.android.conannews.menu.ConanCastMenuAction;
 import de.karasuma.android.conannews.menu.HomeMenuAction;
 import de.karasuma.android.conannews.menu.MenuAction;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        posts.clear();
         setContentView(R.layout.activity_main);
         mainActivity = this;
 
@@ -46,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.containsKey("filterURL")) {
+            conanNewsURL = bundle.getString("filterURL");
+        }
 
         loadNextPosts();
 
@@ -107,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         menuActionMap = new HashMap<>();
         menuActionMap.put(R.id.home_menu_item, new HomeMenuAction(this));
+        menuActionMap.put(R.id.conancast_menu_item, new ConanCastMenuAction(this));
 
         return true;
     }
