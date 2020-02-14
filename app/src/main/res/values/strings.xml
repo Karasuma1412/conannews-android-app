@@ -7,4 +7,6 @@
     <string name="category_anime_jp">Anime Japan</string>
     <string name="category_manga_de">Manga Deutschland</string>
     <string name="category_manga_jp">Manga Japan</string>
+    <string name="channel_name">conannews</string>
+    <string name="channel_description">notification channel of conannews</string>
 </resources>
