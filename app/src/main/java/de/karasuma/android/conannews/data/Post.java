@@ -4,8 +4,9 @@ import android.graphics.Bitmap;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Post {
+public class Post extends Observable {
     private String author;
     private String published;
     private String summary;
@@ -72,8 +73,14 @@ public class Post {
         return bitmap;
     }
 
+    /*
+    Notify observers when thumbnail data is updated. Used to replace images in cardview
+    as soon as thumbnails are loaded.
+     */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
+        setChanged();
+        notifyObservers();
     }
 
     public String getUrl() {

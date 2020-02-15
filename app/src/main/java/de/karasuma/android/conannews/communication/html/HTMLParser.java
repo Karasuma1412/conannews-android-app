@@ -41,7 +41,7 @@ import de.karasuma.android.conannews.data.Category;
 
 class HTMLParser {
 
-    private static String tag = "HTMLParser";
+    private static String TAG = "HTMLParser";
 
     public static Post parsePost(final Element element) {
         final Post post = new Post();
@@ -49,8 +49,9 @@ class HTMLParser {
             @Override
             public void run() {
                 try {
+                    Log.v(TAG, "parsing thumbnail of " + post.getTitle());
                     post.setBitmap(parseThumbnail(element));
-                    Log.v(tag, "finished parsing thumbnails");
+                    Log.v(TAG, "finished parsing thumbnail of " + post.getTitle());
                 } catch (SerializationException e) {
                     e.printStackTrace();
                 }
@@ -72,7 +73,7 @@ class HTMLParser {
     }
 
     private static void parseCategoryColorAndFilterURL(Element element, Post post) {
-        Elements categoryElements = element.getElementsByAttributeValue("rel", "category tag");
+        Elements categoryElements = element.getElementsByAttributeValue("rel", "category TAG");
         for (int i = 0; i < categoryElements.size(); i++) {
             Element categoryTag = categoryElements.get(i);
             String style = categoryTag.attr("style");
@@ -91,7 +92,7 @@ class HTMLParser {
 
     private static ArrayList<Category> parseCategory(Element element, Post post) {
         ArrayList<Category> categories = new ArrayList<>();
-        Elements categoryElements = element.getElementsByAttributeValue("rel", "category tag");
+        Elements categoryElements = element.getElementsByAttributeValue("rel", "category TAG");
         for (Element e : categoryElements) {
             Category category = new Category();
             category.setName(e.text());
@@ -153,9 +154,9 @@ class HTMLParser {
         LinearLayout view = (LinearLayout) postActivity.getLayoutInflater().inflate(R.layout.article_layout, null, false);;
         view.setOrientation(LinearLayout.VERTICAL);
 
-        //get article tag
+        //get article TAG
         LinearLayout categories = new LinearLayout(postActivity);
-        Elements categoriesElement = articleElement.getElementsByAttributeValue("rel", "category tag");
+        Elements categoriesElement = articleElement.getElementsByAttributeValue("rel", "category TAG");
         for (Element e : categoriesElement) {
             CardView cardView;
             cardView = (CardView) postActivity.getLayoutInflater().inflate(R.layout.category_item, categories, false);

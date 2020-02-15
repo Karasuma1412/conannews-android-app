@@ -13,18 +13,22 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import de.karasuma.android.conannews.data.Category;
 import de.karasuma.android.conannews.data.Post;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Observer {
 
     private final List<Post> posts;
     private final MainActivity mainActivity;
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
+    HashMap<Post, PostsViewHolder> postsViewHolderHashMap;
 
     public RecyclerViewAdapter(List<Post> posts, MainActivity mainActivity) {
         this.posts = posts;
@@ -69,6 +73,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void populatePostsRows(PostsViewHolder postsViewHolder, final int i) {
         postsViewHolder.title.setText(posts.get(i).getTitle());
+        /*
+        set thumbnail when loaded, otherwise listen for thumbnail updates
+         */
+        if (posts.get(i).getBitmap() != null) {
+            postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
+        } else {
+            if (postsViewHolderHashMap == null) {
+                postsViewHolderHashMap = new HashMap<>();
+            }
+            postsViewHolderHashMap.put(posts.get(i), postsViewHolder);
+            posts.get(i).addObserver(this);
+        }
+
         postsViewHolder.cover.setImageBitmap(posts.get(i).getBitmap());
         postsViewHolder.summary.setText(posts.get(i).getSummary());
 
@@ -122,6 +139,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    /*
+    update posts thumbnails
+     */
+    @Override
+    public void update(Observable observable, Object o) {
+        if(!Post.class.isInstance(observable)) {
+            return;
+        }
+        final Post post = (Post) observable;
+        final PostsViewHolder postsViewHolder = postsViewHolderHashMap.get(post);
+        if (postsViewHolder == null) {
+            return;
+        }
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                postsViewHolder.cover.setImageBitmap(post.getBitmap());
+            }
+        });
     }
 
     public static class PostsViewHolder extends RecyclerView.ViewHolder {
