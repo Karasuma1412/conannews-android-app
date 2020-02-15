@@ -11,9 +11,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import de.karasuma.android.conannews.MainActivity;
+import java.util.LinkedList;
+import java.util.List;
 
-public class RequestPostsTask extends AsyncTask<String, Integer, JSONArray> {
+import de.karasuma.android.conannews.MainActivity;
+import de.karasuma.android.conannews.data.Model;
+import de.karasuma.android.conannews.data.Post;
+
+public class RequestPostsTask extends AsyncTask<String, Integer, List<Post>> {
 
     private final MainActivity mainActivity;
     private String conanNewsUrl = "https://conannews.org/";
@@ -24,24 +29,27 @@ public class RequestPostsTask extends AsyncTask<String, Integer, JSONArray> {
     }
 
     @Override
-    protected JSONArray doInBackground(String... strings) {
+    protected List<Post> doInBackground(String... strings) {
+        LinkedList<Post> posts = new LinkedList<>();
         try {
             Document doc = Jsoup.connect(strings[0]).get();
             Elements elements = doc.body().select("article");
 
             for (Element element : elements) {
                 Log.v(tag, "parsing post");
-                HTMLParser.parsePost(element);
+                posts.add(HTMLParser.parsePost(element));
+                publishProgress(elements.indexOf(element));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return posts;
     }
 
     @Override
-    protected void onPostExecute(JSONArray jsonArray) {
-        super.onPostExecute(jsonArray);
+    protected void onPostExecute(List<Post> posts) {
+        super.onPostExecute(posts);
+        Model.getInstance().getPosts().addAll(posts);
         mainActivity.getProgressCircular().setVisibility(View.INVISIBLE);
         mainActivity.updatePosts();
     }

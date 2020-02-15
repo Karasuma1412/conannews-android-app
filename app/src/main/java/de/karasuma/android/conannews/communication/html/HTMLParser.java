@@ -43,13 +43,20 @@ class HTMLParser {
 
     private static String tag = "HTMLParser";
 
-    public static void parsePost(Element element) {
-        Post post = new Post();
-        try {
-            post.setBitmap(parseThumbnail(element));
-        } catch (SerializationException e) {
-            e.printStackTrace();
-        }
+    public static Post parsePost(final Element element) {
+        final Post post = new Post();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    post.setBitmap(parseThumbnail(element));
+                    Log.v(tag, "finished parsing thumbnails");
+                } catch (SerializationException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
         post.setTitle(parseTitle(element));
         post.setPublished(parsePublished(element));
         post.setAuthor(parseAuthor(element));
@@ -61,7 +68,7 @@ class HTMLParser {
 //        OpenPostTask task = new OpenPostTask(post);
 //        task.execute();
 
-        Model.getInstance().getPosts().add(post);
+        return post;
     }
 
     private static void parseCategoryColorAndFilterURL(Element element, Post post) {
