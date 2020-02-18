@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,14 @@ public class ConanCastAdapter extends ArrayAdapter<File> {
         }
 
         TextView conanCastFileTitleView = convertView.findViewById(R.id.conancast_file_title);
+        ImageButton playButton = convertView.findViewById(R.id.conancast_play_ic_button);
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playConanCast(file);
+            }
+        });
 
         assert file != null;
         conanCastFileTitleView.setText(file.getName());
@@ -44,21 +53,25 @@ public class ConanCastAdapter extends ArrayAdapter<File> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(TAG, "clicked on file " + file.getName());
-                String extension = android.webkit.MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(file).toString());
-                String mimetype = android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-
-                Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_VIEW);
-                intent.setDataAndType(FileProvider
-                                .getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".provider", file),
-                        mimetype);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                getContext().startActivity(intent);
+                playConanCast(file);
             }
         });
 
         return convertView;
+    }
+
+    private void playConanCast(File file) {
+        Log.v(TAG, "clicked on file " + file.getName());
+        String extension = android.webkit.MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(file).toString());
+        String mimetype = android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+
+        Intent intent = new Intent();
+        intent.setAction(android.content.Intent.ACTION_VIEW);
+        intent.setDataAndType(FileProvider
+                        .getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".provider", file),
+                mimetype);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        getContext().startActivity(intent);
     }
 }
