@@ -14,8 +14,10 @@ import java.util.HashMap;
 import de.karasuma.android.conannews.R;
 import de.karasuma.android.conannews.communication.html.OpenPostTask;
 import de.karasuma.android.conannews.menu.CategoryFilterMenuAction;
+import de.karasuma.android.conannews.menu.ConanCastDownloadedMenuAction;
 import de.karasuma.android.conannews.menu.ConanCastMenuAction;
 import de.karasuma.android.conannews.menu.HomeMenuAction;
+import de.karasuma.android.conannews.menu.ImpressumDataProtectionMenuAction;
 import de.karasuma.android.conannews.menu.MenuAction;
 
 public class PostActivity extends AppCompatActivity {
@@ -42,8 +44,13 @@ public class PostActivity extends AppCompatActivity {
 
         menuActionMap = new HashMap<>();
         menuActionMap.put(R.id.home_menu_item, new HomeMenuAction(this));
-        menuActionMap.put(R.id.conancast_menu_item, new ConanCastMenuAction(this));
-        menuActionMap.put(R.id.category_filter_menu_item, new CategoryFilterMenuAction(this, "anime-de"));
+        menuActionMap.put(R.id.new_conancast_menu_item, new ConanCastMenuAction(this));
+        menuActionMap.put(R.id.conancast_downloaded_menu_item, new ConanCastDownloadedMenuAction(this));
+        menuActionMap.put(R.id.category_anime_de_menu_item, new CategoryFilterMenuAction(this, "anime-de"));
+        menuActionMap.put(R.id.category_anime_jp_menu_item, new CategoryFilterMenuAction(this, "anime-jp"));
+        menuActionMap.put(R.id.category_manga_de_menu_item, new CategoryFilterMenuAction(this, "manga-de"));
+        menuActionMap.put(R.id.category_manga_jp_menu_item, new CategoryFilterMenuAction(this, "manga-jp"));
+        menuActionMap.put(R.id.impressum_data_protection_menu_item, new ImpressumDataProtectionMenuAction(this));
 
         return true;
     }

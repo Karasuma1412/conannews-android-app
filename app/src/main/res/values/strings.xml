@@ -14,4 +14,5 @@
     <string name="conannews">ConanNews</string>
     <string name="empty_conancast">Du hast anscheinend noch keine ConanCasts heruntergeladen.</string>
     <string name="conancast_play_ic_description">Play button for conancast audio files</string>
+    <string name="impressum_data_protection_menu">Impressum und Datenschutz</string>
 </resources>

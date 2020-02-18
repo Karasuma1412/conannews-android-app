@@ -37,4 +37,8 @@
                 android:title="@string/category_manga_jp" />
         </menu>
     </item>
+
+    <item
+        android:id="@+id/impressum_data_protection_menu_item"
+        android:title="@string/impressum_data_protection_menu" />
 </menu>
