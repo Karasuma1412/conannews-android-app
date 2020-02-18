@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/home_menu_item"
+    <item
+        android:id="@+id/home_menu_item"
         android:title="@string/home"
         android:icon="@drawable/home"
-        app:showAsAction="ifRoom">
-    </item>
-    <item android:id="@+id/conancast_menu_item"
+        app:showAsAction="ifRoom"></item>
+    <item
+        android:id="@+id/conancast_menu_item"
         android:title="@string/conancast"
         android:icon="@drawable/home"
         app:showAsAction="">
@@ -21,24 +22,32 @@
         </menu>
     </item>
 
-    <item android:id="@+id/category_filter_menu_item"
+    <item
+        android:id="@+id/category_filter_menu_item"
         android:title="@string/category_filter"
         android:icon="@drawable/filter"
-        app:showAsAction="ifRoom"
-        >
+        app:showAsAction="ifRoom">
         <menu>
-            <item android:id="@+id/category_anime_de_menu_item"
+            <item
+                android:id="@+id/category_anime_de_menu_item"
                 android:title="@string/category_anime_de" />
-            <item android:id="@+id/category_anime_jp_menu_item"
+            <item
+                android:id="@+id/category_anime_jp_menu_item"
                 android:title="@string/category_anime_jp" />
-            <item android:id="@+id/category_manga_de_menu_item"
+            <item
+                android:id="@+id/category_manga_de_menu_item"
                 android:title="@string/category_manga_de" />
-            <item android:id="@+id/category_manga_jp_menu_item"
+            <item
+                android:id="@+id/category_manga_jp_menu_item"
                 android:title="@string/category_manga_jp" />
         </menu>
     </item>
 
     <item
-        android:id="@+id/impressum_data_protection_menu_item"
-        android:title="@string/impressum_data_protection_menu" />
+        android:id="@+id/impressum_menu_item"
+        android:title="@string/impressum_menu_item" />
+
+    <item
+        android:id="@+id/data_protection_menu_item"
+        android:title="@string/data_protection_menu_item" />
 </menu>

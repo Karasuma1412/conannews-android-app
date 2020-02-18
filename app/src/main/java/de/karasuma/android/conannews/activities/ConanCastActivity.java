@@ -21,8 +21,9 @@ import de.karasuma.android.conannews.filehandling.ConanCastFileController;
 import de.karasuma.android.conannews.menu.CategoryFilterMenuAction;
 import de.karasuma.android.conannews.menu.ConanCastDownloadedMenuAction;
 import de.karasuma.android.conannews.menu.ConanCastMenuAction;
+import de.karasuma.android.conannews.menu.DataProtectionMenuAction;
 import de.karasuma.android.conannews.menu.HomeMenuAction;
-import de.karasuma.android.conannews.menu.ImpressumDataProtectionMenuAction;
+import de.karasuma.android.conannews.menu.ImpressumMenuAction;
 import de.karasuma.android.conannews.menu.MenuAction;
 
 public class ConanCastActivity extends AppCompatActivity {
@@ -66,8 +67,8 @@ public class ConanCastActivity extends AppCompatActivity {
         menuActionMap.put(R.id.category_anime_jp_menu_item, new CategoryFilterMenuAction(this, "anime-jp"));
         menuActionMap.put(R.id.category_manga_de_menu_item, new CategoryFilterMenuAction(this, "manga-de"));
         menuActionMap.put(R.id.category_manga_jp_menu_item, new CategoryFilterMenuAction(this, "manga-jp"));
-        menuActionMap.put(R.id.impressum_data_protection_menu_item, new ImpressumDataProtectionMenuAction(this));
-
+        menuActionMap.put(R.id.impressum_menu_item, new ImpressumMenuAction(this));
+        menuActionMap.put(R.id.data_protection_menu_item, new DataProtectionMenuAction(this));
         return true;
     }
 
