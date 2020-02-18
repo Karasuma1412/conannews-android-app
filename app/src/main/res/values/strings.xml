@@ -9,4 +9,8 @@
     <string name="category_manga_jp">Manga Japan</string>
     <string name="channel_name">conannews</string>
     <string name="channel_description">notification channel of conannews</string>
+    <string name="conancast_downloaded">Heruntergeladen</string>
+    <string name="new_conancast">Aktuell</string>
+    <string name="conannews">ConanNews</string>
+    <string name="empty_conancast">Du hast anscheinend noch keine ConanCasts heruntergeladen.</string>
 </resources>

@@ -1,10 +1,11 @@
 package de.karasuma.android.conannews.menu;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
-import de.karasuma.android.conannews.MainActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import de.karasuma.android.conannews.activities.MainActivity;
 
 public class HomeMenuAction implements MenuAction {
 

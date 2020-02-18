@@ -1,41 +1,38 @@
-package de.karasuma.android.conannews;
-
-import de.karasuma.android.conannews.communication.html.RequestPostsTask;
-import de.karasuma.android.conannews.data.*;
-import de.karasuma.android.conannews.menu.CategoryFilterMenuAction;
-import de.karasuma.android.conannews.menu.ConanCastMenuAction;
-import de.karasuma.android.conannews.menu.HomeMenuAction;
-import de.karasuma.android.conannews.menu.MenuAction;
+package de.karasuma.android.conannews.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.os.Build;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import de.karasuma.android.conannews.R;
+import de.karasuma.android.conannews.RecyclerViewAdapter;
+import de.karasuma.android.conannews.communication.html.RequestPostsTask;
+import de.karasuma.android.conannews.data.Model;
+import de.karasuma.android.conannews.data.Post;
+import de.karasuma.android.conannews.menu.CategoryFilterMenuAction;
+import de.karasuma.android.conannews.menu.ConanCastDownloadedMenuAction;
+import de.karasuma.android.conannews.menu.ConanCastMenuAction;
+import de.karasuma.android.conannews.menu.HomeMenuAction;
+import de.karasuma.android.conannews.menu.MenuAction;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -145,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
         menuActionMap = new HashMap<>();
         menuActionMap.put(R.id.home_menu_item, new HomeMenuAction(this));
-        menuActionMap.put(R.id.conancast_menu_item, new ConanCastMenuAction(this));
+        menuActionMap.put(R.id.new_conancast_menu_item, new ConanCastMenuAction(this));
+        menuActionMap.put(R.id.conancast_downloaded_menu_item, new ConanCastDownloadedMenuAction(this));
         menuActionMap.put(R.id.category_anime_de_menu_item, new CategoryFilterMenuAction(this, "anime-de"));
         menuActionMap.put(R.id.category_anime_jp_menu_item, new CategoryFilterMenuAction(this, "anime-jp"));
         menuActionMap.put(R.id.category_manga_de_menu_item, new CategoryFilterMenuAction(this, "manga-de"));

@@ -13,7 +13,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import de.karasuma.android.conannews.MainActivity;
+import de.karasuma.android.conannews.activities.MainActivity;
 import de.karasuma.android.conannews.data.Post;
 
 class RequestPostCoverTask extends AsyncTask<String, Integer, Bitmap> {

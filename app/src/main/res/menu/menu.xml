@@ -10,6 +10,15 @@
         android:title="@string/conancast"
         android:icon="@drawable/home"
         app:showAsAction="">
+
+        <menu>
+            <item
+                android:id="@+id/new_conancast_menu_item"
+                android:title="@string/new_conancast" />
+            <item
+                android:id="@+id/conancast_downloaded_menu_item"
+                android:title="@string/conancast_downloaded" />
+        </menu>
     </item>
 
     <item android:id="@+id/category_filter_menu_item"

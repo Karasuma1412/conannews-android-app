@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
-import de.karasuma.android.conannews.MainActivity;
+import de.karasuma.android.conannews.activities.MainActivity;
 
 public class CategoryFilterMenuAction implements MenuAction {
     private final String tag = "CategoryFilterMenu";

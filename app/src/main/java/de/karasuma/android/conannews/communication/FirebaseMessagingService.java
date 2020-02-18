@@ -9,8 +9,8 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 
-import de.karasuma.android.conannews.MainActivity;
 import de.karasuma.android.conannews.R;
+import de.karasuma.android.conannews.activities.MainActivity;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
@@ -23,7 +23,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         String summary = remoteMessage.getData().get("summary");
 
         //remove all html tags from summary
-        summary = summary.replaceAll("<[^>]*>",  "");
+        summary = summary.replaceAll("<[^>]*>", "");
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "conannews")
