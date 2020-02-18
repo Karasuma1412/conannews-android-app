@@ -5,9 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-
-import androidx.cardview.widget.CardView;
-
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -19,6 +16,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.SerializationException;
@@ -33,11 +32,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import de.karasuma.android.conannews.PostActivity;
 import de.karasuma.android.conannews.R;
+import de.karasuma.android.conannews.activities.PostActivity;
+import de.karasuma.android.conannews.data.Category;
 import de.karasuma.android.conannews.data.Model;
 import de.karasuma.android.conannews.data.Post;
-import de.karasuma.android.conannews.data.Category;
+import de.karasuma.android.conannews.filehandling.ConanCastFileController;
 
 class HTMLParser {
 
@@ -151,7 +151,7 @@ class HTMLParser {
     }
 
     public static View parseArticle(Element articleElement, final PostActivity postActivity) {
-        LinearLayout view = (LinearLayout) postActivity.getLayoutInflater().inflate(R.layout.article_layout, null, false);;
+        LinearLayout view = (LinearLayout) postActivity.getLayoutInflater().inflate(R.layout.article_layout, null, false);
         view.setOrientation(LinearLayout.VERTICAL);
 
         //get article TAG
@@ -189,7 +189,11 @@ class HTMLParser {
         TextView publishedView = (TextView) articleInfoLayout.getChildAt(0);
         TextView authorView = (TextView) articleInfoLayout.getChildAt(1);
 
-        String published = articleElement.getElementsByClass("entry-date published").first().text();
+        Element datePublished = articleElement.getElementsByClass("entry-date published").first();
+        if (datePublished == null) {
+            datePublished = articleElement.getElementsByClass("entry-date published updated").first();
+        }
+        String published = datePublished.text();
         publishedView.setText(published);
 
         String author = articleElement.getElementsByClass("url fn n").first().text();
@@ -213,7 +217,7 @@ class HTMLParser {
                     /*
                     force image urls to use https
                      */
-                    if(!imageURLString.contains("https")) {
+                    if (!imageURLString.contains("https")) {
                         imageURLString = imageURLString.replace("http", "https");
                     }
 
@@ -228,7 +232,7 @@ class HTMLParser {
                     exception.printStackTrace();
                 }
             }
-            for (Element link : e.select("a")) {
+            for (final Element link : e.select("a")) {
                 final String url = link.absUrl("href");
                 String linkText = link.text();
                 int startIndex = e.text().indexOf(linkText);
@@ -238,11 +242,18 @@ class HTMLParser {
 
                     @Override
                     public void onClick(View widget) {
-                        if (isConannewsLink(url)) {
+                        if (isConanCastDownloadLink(link)) {
+                            Log.v(TAG, "Download file...");
+                            ConanCastFileController conanCastFileController = Model
+                                    .getInstance().getConanCastFileController();
+                            conanCastFileController.downloadConanCastFile(postActivity, url);
+                        } else if (isConannewsLink(url)) {
+                            Log.v(TAG, "Internal link...");
                             Intent intent = new Intent(postActivity, PostActivity.class);
                             intent.putExtra("url", url);
                             postActivity.startActivity(intent);
                         } else {
+                            Log.v(TAG, "External link...");
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(Uri.parse(url));
                             postActivity.startActivity(intent);
@@ -286,13 +297,16 @@ class HTMLParser {
         //createArticle(articleElement, )
 
 
-
         Elements paragraphs = articleElement.select("p");
         StringBuilder builder = new StringBuilder();
         for (Element paragraphElement : paragraphs) {
             builder.append(paragraphElement.text() + "\n\n");
         }
         return view;
+    }
+
+    private static boolean isConanCastDownloadLink(Element link) {
+        return link.className().equals("powerpress_link_d");
     }
 
     public void parsePosts(BufferedReader br) throws IOException {

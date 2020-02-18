@@ -2,9 +2,6 @@ package de.karasuma.android.conannews;
 
 import android.content.Intent;
 import android.graphics.Color;
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import de.karasuma.android.conannews.activities.MainActivity;
+import de.karasuma.android.conannews.activities.PostActivity;
 import de.karasuma.android.conannews.data.Category;
 import de.karasuma.android.conannews.data.Post;
 
@@ -146,7 +149,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     @Override
     public void update(Observable observable, Object o) {
-        if(!Post.class.isInstance(observable)) {
+        if (!(observable instanceof Post)) {
             return;
         }
         final Post post = (Post) observable;

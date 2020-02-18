@@ -1,5 +1,5 @@
 package de.karasuma.android.conannews.communication.html;
-import android.content.Intent;
+
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -10,8 +10,8 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 
-import de.karasuma.android.conannews.PostActivity;
 import de.karasuma.android.conannews.R;
+import de.karasuma.android.conannews.activities.PostActivity;
 
 public class OpenPostTask extends AsyncTask<String, Integer, View> {
     private final PostActivity postActivity;

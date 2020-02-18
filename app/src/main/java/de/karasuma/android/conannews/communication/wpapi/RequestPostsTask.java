@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import de.karasuma.android.conannews.MainActivity;
+import de.karasuma.android.conannews.activities.MainActivity;
 
 public class RequestPostsTask extends AsyncTask<URL, JSONArray, JSONArray> {
 

@@ -2,23 +2,21 @@ package de.karasuma.android.conannews.menu;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 
-import de.karasuma.android.conannews.activities.MainActivity;
+import de.karasuma.android.conannews.activities.ConanCastActivity;
 
-public class ConanCastMenuAction implements MenuAction {
+public class ConanCastDownloadedMenuAction implements MenuAction {
     private final Activity activity;
-    private final String tag = "ConanCastMenuAction";
+    private final String TAG = "ConanCastDownloadedMA";
 
-    public ConanCastMenuAction(Activity activity) {
+    public ConanCastDownloadedMenuAction(Activity activity) {
         this.activity = activity;
     }
 
     @Override
     public boolean execute() {
-        Log.v(tag, "ConanCastMenuItem clicked");
         String url = "https://conannews.org/category/conancast/";
-        Intent intent = new Intent(activity, MainActivity.class);
+        Intent intent = new Intent(activity, ConanCastActivity.class);
         intent.putExtra("filterURL", url);
         activity.startActivity(intent);
         return true;

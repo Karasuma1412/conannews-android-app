@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
-import org.json.JSONArray;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,7 +13,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.karasuma.android.conannews.MainActivity;
+import de.karasuma.android.conannews.activities.MainActivity;
 import de.karasuma.android.conannews.data.Model;
 import de.karasuma.android.conannews.data.Post;
 

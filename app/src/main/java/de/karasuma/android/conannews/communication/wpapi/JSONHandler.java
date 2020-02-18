@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import de.karasuma.android.conannews.MainActivity;
+import de.karasuma.android.conannews.activities.MainActivity;
 import de.karasuma.android.conannews.data.Model;
 import de.karasuma.android.conannews.data.Post;
 

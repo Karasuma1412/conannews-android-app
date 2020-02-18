@@ -2,7 +2,6 @@ package de.karasuma.android.conannews.data;
 
 import android.graphics.Bitmap;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Observable;
 

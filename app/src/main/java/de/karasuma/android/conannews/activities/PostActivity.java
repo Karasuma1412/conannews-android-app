@@ -1,6 +1,5 @@
-package de.karasuma.android.conannews;
+package de.karasuma.android.conannews.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -8,8 +7,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.HashMap;
 
+import de.karasuma.android.conannews.R;
 import de.karasuma.android.conannews.communication.html.OpenPostTask;
 import de.karasuma.android.conannews.menu.CategoryFilterMenuAction;
 import de.karasuma.android.conannews.menu.ConanCastMenuAction;
