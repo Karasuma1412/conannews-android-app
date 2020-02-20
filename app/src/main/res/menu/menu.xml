@@ -149,7 +149,7 @@
                 <menu>
                     <item android:id="@+id/category_aoyama_menu_item"
                         android:title="@string/category_aoyama" />
-                    <item android:id="@+id/category_aoyama_gosho_menu_item"
+                    <item android:id="@+id/category_aoyama_gosho_interviews_menu_item"
                         android:title="@string/category_aoyama_gosho_interviews" />
                 </menu>
             </item>
