@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -15,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -204,7 +209,7 @@ class HTMLParser {
         //content
         LinearLayout contentLayout = (LinearLayout) postActivity.getLayoutInflater().inflate(R.layout.article_content, view, false);
         Element contentElements = articleElement.getElementsByClass("entry-content clearfix").first();
-        Elements paragraphElements = contentElements.select("p, h1, h2, h3, h4, h5, h6");
+        Elements paragraphElements = contentElements.select("p, h1, h2, h3, h4, h5, h6, table");
 
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
 
@@ -280,18 +285,86 @@ class HTMLParser {
                 spannableString.setSpan(linkClickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
-            TextView paragraphView = null;
-            if (e.is("h1, h2, h3, h4, h5, h6")) {
-                paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_subheadline, null, false);
+            if (e.is("table")) {
+                Log.v(TAG, "element is table");
+                TableLayout tableLayout = (TableLayout) postActivity.getLayoutInflater().inflate(R.layout.article_table, contentLayout, false);
+                for (Element rowElement : e.select("tr")) {
+                    TableRow row = (TableRow) postActivity.getLayoutInflater().inflate(R.layout.article_table_row, tableLayout, false);
+                    for (Element colElement : rowElement.select("td")) {
+                        TextView col = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_table_content_text, row, false);
+                        col.setText(colElement.text());
+
+                        for (final Element link : colElement.select("a")) {
+                            SpannableString tableSpanString = new SpannableString(colElement.text());
+                            Log.v(TAG, "Link found: " + link.text());
+                            final String url = link.absUrl("href");
+                            String linkText = link.text();
+                            int startIndex = colElement.text().indexOf(linkText);
+                            int endIndex = startIndex + linkText.length();
+
+                            ClickableSpan linkClickableSpan = new ClickableSpan() {
+
+                                @Override
+                                public void onClick(View widget) {
+                                    if (isConanCastDownloadLink(link)) {
+                                        Log.v(TAG, "Download file...");
+                                        ConanCastFileController conanCastFileController = Model
+                                                .getInstance().getConanCastFileController();
+                                        conanCastFileController.downloadConanCastFile(postActivity, url);
+                                    } else if (isConannewsLink(url)) {
+                                        Log.v(TAG, "Internal link...");
+                                        Intent intent = new Intent(postActivity, PostActivity.class);
+                                        intent.putExtra("url", url);
+                                        postActivity.startActivity(intent);
+                                    } else {
+                                        Log.v(TAG, "External link...");
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse(url));
+                                        postActivity.startActivity(intent);
+                                    }
+                                }
+
+                                private boolean isConannewsLink(String url) {
+                                    return url.contains("conannews.org");
+                                }
+
+                                @Override
+                                public void updateDrawState(TextPaint ds) {
+                                    super.updateDrawState(ds);
+                                    ds.setColor(postActivity.getResources().getColor(R.color.colorLink));
+                                    ds.setUnderlineText(true);
+                                }
+                            };
+                            tableSpanString.setSpan(linkClickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            col.setText(tableSpanString);
+                            col.setMovementMethod(LinkMovementMethod.getInstance());
+                        }
+
+                        //create border
+                        ShapeDrawable border = new ShapeDrawable(new RectShape());
+                        border.getPaint().setStyle(Paint.Style.STROKE);
+                        border.getPaint().setColor(Color.BLACK);
+                        col.setBackground(border);
+                        row.addView(col);
+                    }
+                    tableLayout.addView(row);
+                }
+                contentLayout.addView(tableLayout);
+            } else if (e.is("h1, h2, h3, h4, h5, h6")) {
+                Log.v(TAG, "element is subheadline");
+
+                TextView subheadline = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_subheadline, contentLayout, false);
+                subheadline.setText(spannableString);
+                subheadline.setMovementMethod(LinkMovementMethod.getInstance());
+                contentLayout.addView(subheadline);
             } else {
-                paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, null, false);
+                Log.v(TAG, "element is paragraph");
+
+                TextView paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, contentLayout, false);
+                paragraphView.setText(spannableString);
+                paragraphView.setMovementMethod(LinkMovementMethod.getInstance());
+                contentLayout.addView(paragraphView);
             }
-
-            paragraphView.setText(spannableString);
-            paragraphView.setMovementMethod(LinkMovementMethod.getInstance());
-
-
-            contentLayout.addView(paragraphView);
         }
 
         view.addView(contentLayout);
