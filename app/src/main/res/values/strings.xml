@@ -3,10 +3,84 @@
     <string name="home">Home</string>
     <string name="conancast">ConanCast</string>
     <string name="category_filter">Filter</string>
-    <string name="category_anime_de">Anime Deutschland</string>
-    <string name="category_anime_jp">Anime Japan</string>
-    <string name="category_manga_de">Manga Deutschland</string>
-    <string name="category_manga_jp">Manga Japan</string>
+
+    <string name="category_allgemein">Allgemein</string>
+    <string name="category_allgemein_gb">Geburtstage</string>
+
+    <string name="category_conancast">ConanCast</string>
+    <string name="category_conancast_kommentar">ConanCast: Kommentar</string>
+    <string name="category_conancast_newspodcast">ConanCast: Newspodcast</string>
+    <string name="category_conancast_themenpodcast">ConanCast: Themenpodcast</string>
+
+    <string name="category_dcc">DC-Community</string>
+    <string name="category_dcc_forum">ConanForum</string>
+    <string name="category_dcc_wiki">ConanWiki</string>
+    <string name="category_dcc_gewinnspiele">Gewinnspiele</string>
+    <string name="category_dcc_interviews">Interviews</string>
+    <string name="category_dcc_newsblog">Newsblog</string>
+    <string name="category_dcc_reisen">Reise-Berichte</string>
+    <string name="category_dcc_wzs">Wort zum Sonntag</string>
+
+    <string name="category_anime_de">Deutschland: Anime</string>
+    <string name="category_anime_de_dvd_de">Deutschland: Anime auf DVD</string>
+    <string name="category_anime_de_episoden">Deutschland: Anime im Fernsehen</string>
+    <string name="category_anime_de_internet">Deutschland: Anime im Internet</string>
+    <string name="category_anime_de_quoten">Deutschland: Anime Einschaltquoten</string>
+
+    <string name="category_filme_de">Deutschland: Filme</string>
+    <string name="category_filme_de_dvd">Deutschland: Filme auf DVD und Blu-Ray</string>
+    <string name="category_filme_de_tv">Deutschland: Filme im Fernsehen</string>
+
+    <string name="category_manga_de">Deutschland: Manga</string>
+    <string name="category_manga_de_e_manga">Deutschland: E-Mange</string>
+    <string name="category_manga_de_ankuendigungen">Deutschland: Manga-Bände</string>
+    <string name="category_manga_de_releases">Deutschland: Manga-Veröffentlichungen</string>
+
+    <string name="category_sonstiges_de">Deutschland: Sonstiges</string>
+    <string name="category_sonstiges_de_aktionen_de">Deutschland: Aktionen</string>
+    <string name="category_sonstiges_de_kalender">Deutschland: Wandkalender</string>
+
+    <string name="category_aoyama">Gosho Aoyama</string>
+    <string name="category_aoyama_gosho_interviews">Interviews mit Gosho Aoyama</string>
+
+    <string name="category_anime_jp">Japan: Anime</string>
+    <string name="category_anime_jp_episoden_dvd">Japan: Anime-Episoden auf DVD</string>
+    <string name="category_anime_jp_neue_episoden">Japan: Anime-Episoden im Fernsehen</string>
+    <string name="category_anime_jp_episodenplaene">Japan: Kommende Anime-Episoden</string>
+    <string name="category_anime_jp_musik">Japan: Openings und Endings</string>
+
+    <string name="category_filme_jp">Japan: Kinofilme</string>
+    <string name="category_filme_jp_informationen">Japan: Ankündigungen zu Kinofilmen</string>
+    <string name="category_filme_jp_trailer">Japan: Trailer und Webseiten zu Kinofilmen</string>
+    <string name="category_filme_jp_veroeffentlichungen_jp">Japan: Veröffentlichungen zu Kinofilmen</string>
+    <string name="category_filme_jp_zahlen">Japan: Zahlungen zu Kinofilmen</string>
+
+    <string name="category_manga_jp">Japan: Manga</string>
+    <string name="category_manga_jp_neue_baende">Japan: Manga-Bände</string>
+    <string name="category_manga_jp_neue_kapitel">Japan: Manga-Kapitel</string>
+
+    <string name="category_sonstiges_jp">Japan: Sonstiges</string>
+    <string name="category_sonstiges_jp_events">Japan: Aktionen</string>
+    <string name="category_sonstiges_jp_spiele">Japan: Videospiele</string>
+
+    <string name="category_anime_off">Japan: Spin-Offs zum Anime</string>
+    <string name="category_anime_off_magicfiles">Japan: Magic Files / Bonus Files</string>
+    <string name="category_anime_off_ovas">Japan: Original Video Animation</string>
+    <string name="category_anime_off_realfilme">Japan: Realfilme</string>
+    <string name="category_anime_off_realfilmserie">Japan: Realfilmserie</string>
+
+    <string name="category_kid">Kaito Kid</string>
+    <string name="category_kid_kid_anime">Kaito Kid: Anime Episoden</string>
+
+    <string name="category_more">Weitere Länder</string>
+    <string name="category_more_china">China</string>
+    <string name="category_more_finnland">Finland</string>
+    <string name="category_more_frankreich">Frankreich</string>
+    <string name="category_more_italien">Italien</string>
+    <string name="category_more_italien_anime_it">Italien: Anime</string>
+    <string name="category_more_italien_manga_it">Italien: Manga</string>
+    <string name="category_more_usa">Vereinigte Staaten</string>
+
     <string name="channel_name">conannews</string>
     <string name="channel_description">notification channel of conannews</string>
     <string name="conancast_downloaded">Heruntergeladen</string>
