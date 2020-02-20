@@ -204,12 +204,18 @@ class HTMLParser {
         //content
         LinearLayout contentLayout = (LinearLayout) postActivity.getLayoutInflater().inflate(R.layout.article_content, view, false);
         Element contentElements = articleElement.getElementsByClass("entry-content clearfix").first();
-        Elements paragraphElements = contentElements.select("p");
+        Elements paragraphElements = contentElements.select("p, h1, h2, h3, h4, h5, h6");
 
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
 
         for (Element e : paragraphElements) {
+
+            if (!e.hasText()) {
+                continue;
+            }
+
             SpannableString spannableString = new SpannableString(e.text());
+            Log.v(TAG, "paragraph element string: " + spannableString.toString());
 
             for (Element img : e.select("img")) {
                 String imageURLString = img.absUrl("src");
@@ -274,9 +280,17 @@ class HTMLParser {
                 spannableString.setSpan(linkClickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
-            TextView paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, null, false);
+            TextView paragraphView = null;
+            if (e.is("h1, h2, h3, h4, h5, h6")) {
+                paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_subheadline, null, false);
+            } else {
+                paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, null, false);
+            }
+
             paragraphView.setText(spannableString);
             paragraphView.setMovementMethod(LinkMovementMethod.getInstance());
+
+
             contentLayout.addView(paragraphView);
         }
 
