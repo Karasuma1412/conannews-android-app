@@ -28,18 +28,242 @@
         android:icon="@drawable/filter"
         app:showAsAction="ifRoom">
         <menu>
+            <item android:id="@+id/category_head_allgemein_menu_item"
+                android:title="@string/category_allgemein">
+                <menu>
+                    <item android:id="@+id/category_allgemein_menu_item"
+                        android:title="@string/category_allgemein"/>
+                    <item android:id="@+id/category_allgemein_gb_menu_item"
+                        android:title="@string/category_allgemein_gb"/>
+                </menu>
+            </item>
+
+            <item android:id="@+id/category_head_conancast_menu_item"
+                android:title="@string/category_conancast">
+                <menu>
+                    <item
+                        android:id="@+id/category_conancast_menu_item"
+                        android:title="@string/category_conancast" />
+                    <item android:id="@+id/category_conancast_kommentar"
+                        android:title="@string/category_conancast_kommentar"/>
+                    <item
+                        android:id="@+id/category_conancast_newspodcast"
+                        android:title="@string/category_conancast_newspodcast" />
+                    <item
+                        android:id="@+id/category_conancast_themenpodcast"
+                        android:title="@string/category_conancast_themenpodcast" />
+                </menu>
+            </item>
+
+            <item android:id="@+id/category_head_dcc_menu_item"
+                android:title="@string/category_dcc">
+                <menu>
+                    <item
+                        android:id="@+id/category_dcc_menu_item"
+                        android:title="@string/category_dcc" />
+                    <item
+                        android:id="@+id/category_dcc_menu_item_forum"
+                        android:title="@string/category_dcc_forum" />
+                    <item
+                        android:id="@+id/category_dcc_wiki_menu_item"
+                        android:title="@string/category_dcc_wiki" />
+                    <item
+                        android:id="@+id/category_dcc_gewinnspiele_menu_item"
+                        android:title="@string/category_dcc_gewinnspiele" />
+                    <item
+                        android:id="@+id/category_dcc_interviews_menu_item"
+                        android:title="@string/category_dcc_interviews"/>
+                    <item
+                        android:id="@+id/category_dcc_newsblog_menu_item"
+                        android:title="@string/category_dcc_newsblog" />
+                    <item
+                        android:id="@+id/category_dcc_reisen_menu_item"
+                        android:title="@string/category_dcc_reisen" />
+                    <item
+                        android:id="@+id/category_dcc_wzs_menu_item"
+                        android:title="@string/category_dcc_wzs" />
+                </menu>
+            </item>
+
             <item
-                android:id="@+id/category_anime_de_menu_item"
-                android:title="@string/category_anime_de" />
+                android:id="@+id/category_head_anime_de_menu_item"
+                android:title="@string/category_anime_de">
+                <menu>
+                    <item android:id="@+id/category_anime_de_menu_item"
+                        android:title="@string/category_anime_de" />
+                    <item android:id="@+id/category_anime_de_dvd_de_menu_item"
+                        android:title="@string/category_anime_de_dvd_de" />
+                    <item android:id="@+id/category_anime_de_episoden_menu_item"
+                        android:title="@string/category_anime_de_episoden"/>
+                    <item android:id="@+id/category_anime_de_internet_menu_item"
+                        android:title="@string/category_anime_de_internet"/>
+                    <item android:id="@+id/category_anime_de_quoten_menu_item"
+                        android:title="@string/category_anime_de_quoten"/>
+                </menu>
+            </item>
+
             <item
-                android:id="@+id/category_anime_jp_menu_item"
-                android:title="@string/category_anime_jp" />
+                android:id="@+id/category_head_filme_de_menu_item"
+                android:title="@string/category_filme_de">
+                <menu>
+                    <item android:id="@+id/category_filme_de_menu_item"
+                        android:title="@string/category_filme_de" />
+                    <item android:id="@+id/category_filme_de_dvd_menu_item"
+                        android:title="@string/category_filme_de_dvd" />
+                    <item android:id="@+id/category_filme_de_tv_menu_item"
+                        android:title="@string/category_filme_de_tv"/>
+                </menu>
+            </item>
+
             <item
-                android:id="@+id/category_manga_de_menu_item"
-                android:title="@string/category_manga_de" />
+                android:id="@+id/category_head_manga_de_menu_item"
+                android:title="@string/category_manga_de" >
+                <menu>
+                    <item android:id="@+id/category_manga_de_menu_item"
+                        android:title="@string/category_manga_de" />
+                    <item android:id="@+id/category_manga_de_e_manga_menu_item"
+                        android:title="@string/category_manga_de_e_manga" />
+                    <item android:id="@+id/category_manga_de_ankeundigungen_menu_item"
+                        android:title="@string/category_manga_de_ankuendigungen"/>
+                    <item android:id="@+id/category_manga_de_releases_menu_item"
+                        android:title="@string/category_manga_de_releases"/>
+                </menu>
+            </item>
+
             <item
-                android:id="@+id/category_manga_jp_menu_item"
-                android:title="@string/category_manga_jp" />
+                android:id="@+id/category_head_sonstiges_de_menu_item"
+                android:title="@string/category_sonstiges_de" >
+                <menu>
+                    <item android:id="@+id/category_sonstiges_de_menu_item"
+                        android:title="@string/category_sonstiges_de" />
+                    <item android:id="@+id/category_sonstiges_de_aktionen_menu_item"
+                        android:title="@string/category_sonstiges_de_aktionen_de" />
+                    <item android:id="@+id/category_sonstiges_de_kalender_menu_item"
+                        android:title="@string/category_sonstiges_de_kalender"/>
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/category_head_aoyama_menu_item"
+                android:title="@string/category_aoyama" >
+                <menu>
+                    <item android:id="@+id/category_aoyama_menu_item"
+                        android:title="@string/category_aoyama" />
+                    <item android:id="@+id/category_aoyama_gosho_menu_item"
+                        android:title="@string/category_aoyama_gosho_interviews" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/category_head_anime_jp_menu_item"
+                android:title="@string/category_anime_jp" >
+                <menu>
+                    <item android:id="@+id/category_anime_jp_menu_item"
+                        android:title="@string/category_anime_jp" />
+                    <item android:id="@+id/category_anime_jp_episoden_dvd_menu_item"
+                        android:title="@string/category_anime_jp_episoden_dvd" />
+                    <item android:id="@+id/category_anime_jp_neue_episoden_menu_item"
+                        android:title="@string/category_anime_jp_neue_episoden" />
+                    <item android:id="@+id/category_anime_jp_episodenplaene_menu_item"
+                        android:title="@string/category_anime_jp_episodenplaene" />
+                    <item android:id="@+id/category_anime_jp_musik_menu_item"
+                        android:title="@string/category_anime_jp_musik" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/category_head_filme_jp_menu_item"
+                android:title="@string/category_filme_jp" >
+                <menu>
+                    <item android:id="@+id/category_filme_jp_menu_item"
+                        android:title="@string/category_filme_jp" />
+                    <item android:id="@+id/category_filme_jp_informationen_menu_item"
+                        android:title="@string/category_filme_jp_informationen" />
+                    <item android:id="@+id/category_filme_jp_trailer_menu_item"
+                        android:title="@string/category_filme_jp_trailer" />
+                    <item android:id="@+id/category_filme_jp_veroeffentlichungen_jp_menu_item"
+                        android:title="@string/category_filme_jp_veroeffentlichungen_jp" />
+                    <item android:id="@+id/category_filme_jp_zahlen_menu_item"
+                        android:title="@string/category_filme_jp_zahlen" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/category_head_manga_jp_menu_item"
+                android:title="@string/category_manga_jp" >
+                <menu>
+                    <item android:id="@+id/category_manga_jp_menu_item"
+                        android:title="@string/category_manga_jp" />
+                    <item android:id="@+id/category_manga_jp_neue_baende_menu_item"
+                        android:title="@string/category_manga_jp_neue_baende" />
+                    <item android:id="@+id/category_manga_jp_neue_kapitel_menu_item"
+                        android:title="@string/category_manga_jp_neue_kapitel" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/category_head_sonstiges_jp_menu_item"
+                android:title="@string/category_sonstiges_jp" >
+                <menu>
+                    <item android:id="@+id/category_sonstiges_jp_menu_item"
+                        android:title="@string/category_sonstiges_jp" />
+                    <item android:id="@+id/category_sonstiges_jp_events_menu_item"
+                        android:title="@string/category_sonstiges_jp_events" />
+                    <item android:id="@+id/category_sonstiges_jp_spiele_menu_item"
+                        android:title="@string/category_sonstiges_jp_spiele" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/category_head_anime_off_menu_item"
+                android:title="@string/category_anime_off" >
+                <menu>
+                    <item android:id="@+id/category_anime_off_menu_item"
+                        android:title="@string/category_anime_off" />
+                    <item android:id="@+id/category_anime_off_magicfiles_menu_item"
+                        android:title="@string/category_anime_off_magicfiles" />
+                    <item android:id="@+id/category_anime_off_ovas_menu_item"
+                        android:title="@string/category_anime_off_ovas" />
+                    <item android:id="@+id/category_anime_off_realfilme_menu_item"
+                        android:title="@string/category_anime_off_realfilme" />
+                    <item android:id="@+id/category_anime_off_realfilmserie_menu_item"
+                        android:title="@string/category_anime_off_realfilmserie" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/category_head_kid_menu_item"
+                android:title="@string/category_kid" >
+                <menu>
+                    <item android:id="@+id/category_kid_menu_item"
+                        android:title="@string/category_kid" />
+                    <item android:id="@+id/category_kid_kid_anime_menu_item"
+                        android:title="@string/category_kid_kid_anime" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/category_head_more_menu_item"
+                android:title="@string/category_more" >
+                <menu>
+                    <item android:id="@+id/category_more_menu_item"
+                        android:title="@string/category_more" />
+                    <item android:id="@+id/category_more_china_menu_item"
+                        android:title="@string/category_more_china" />
+                    <item android:id="@+id/category_more_finnland_menu_item"
+                        android:title="@string/category_more_finnland" />
+                    <item android:id="@+id/category_more_frankreich_menu_item"
+                        android:title="@string/category_more_frankreich" />
+                    <item android:id="@+id/category_more_italien_menu_item"
+                        android:title="@string/category_more_italien" />
+                    <item android:id="@+id/category_more_italien_anime_it_menu_item"
+                        android:title="@string/category_more_italien_anime_it" />
+                    <item android:id="@+id/category_more_italien_manga_it_menu_item"
+                        android:title="@string/category_more_italien_manga_it" />
+                    <item android:id="@+id/category_more_usa_menu_item"
+                        android:title="@string/category_more_usa" />
+                </menu>
+            </item>
         </menu>
     </item>
 
