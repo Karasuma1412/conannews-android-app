@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,7 +32,12 @@ public class RequestPostsTask extends AsyncTask<String, Integer, List<Post>> {
     protected List<Post> doInBackground(String... strings) {
         LinkedList<Post> posts = new LinkedList<>();
         try {
-            Document doc = Jsoup.connect(strings[0]).get();
+            String url = Model.getInstance().getUrlUtil().createHttpsURL(strings[0]);
+            Log.v(tag, url);
+            Connection.Response response = Jsoup.connect(url).execute();
+            mainActivity.setConanNewsURL(response.url().toString());;
+
+            Document doc = response.parse();
             Elements elements = doc.body().select("article");
 
             for (Element element : elements) {

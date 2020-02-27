@@ -3,6 +3,8 @@ package de.karasuma.android.conannews.filehandling;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.File;
 
 import de.karasuma.android.conannews.activities.PostActivity;
@@ -27,9 +29,9 @@ public class ConanCastFileController {
         return files;
     }
 
-    public void downloadConanCastFile(PostActivity postActivity, String url) {
+    public void downloadConanCastFile(AppCompatActivity activity, String url) {
         FileDownloader fileDownloader = new FileDownloader();
-        fileDownloader.download(postActivity, url, path);
+        fileDownloader.download(activity, url, path);
     }
 
 }

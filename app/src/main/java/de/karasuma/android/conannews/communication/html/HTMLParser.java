@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 import de.karasuma.android.conannews.R;
 import de.karasuma.android.conannews.activities.PostActivity;
+import de.karasuma.android.conannews.communication.LinkHandler;
 import de.karasuma.android.conannews.data.Category;
 import de.karasuma.android.conannews.data.Model;
 import de.karasuma.android.conannews.data.Post;
@@ -253,26 +254,8 @@ class HTMLParser {
 
                     @Override
                     public void onClick(View widget) {
-                        if (isConanCastDownloadLink(link)) {
-                            Log.v(TAG, "Download file...");
-                            ConanCastFileController conanCastFileController = Model
-                                    .getInstance().getConanCastFileController();
-                            conanCastFileController.downloadConanCastFile(postActivity, url);
-                        } else if (isConannewsLink(url)) {
-                            Log.v(TAG, "Internal link...");
-                            Intent intent = new Intent(postActivity, PostActivity.class);
-                            intent.putExtra("url", url);
-                            postActivity.startActivity(intent);
-                        } else {
-                            Log.v(TAG, "External link...");
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse(url));
-                            postActivity.startActivity(intent);
-                        }
-                    }
-
-                    private boolean isConannewsLink(String url) {
-                        return url.contains("conannews.org");
+                        LinkHandler linkHandler = new LinkHandler();
+                        linkHandler.open(link, url, postActivity);
                     }
 
                     @Override
@@ -282,6 +265,8 @@ class HTMLParser {
                         ds.setUnderlineText(true);
                     }
                 };
+                Log.v(TAG, link.absUrl("href"));
+                Log.v(TAG, "startIndex: " + startIndex + ", endIndex: " + endIndex);
                 spannableString.setSpan(linkClickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
@@ -306,26 +291,8 @@ class HTMLParser {
 
                                 @Override
                                 public void onClick(View widget) {
-                                    if (isConanCastDownloadLink(link)) {
-                                        Log.v(TAG, "Download file...");
-                                        ConanCastFileController conanCastFileController = Model
-                                                .getInstance().getConanCastFileController();
-                                        conanCastFileController.downloadConanCastFile(postActivity, url);
-                                    } else if (isConannewsLink(url)) {
-                                        Log.v(TAG, "Internal link...");
-                                        Intent intent = new Intent(postActivity, PostActivity.class);
-                                        intent.putExtra("url", url);
-                                        postActivity.startActivity(intent);
-                                    } else {
-                                        Log.v(TAG, "External link...");
-                                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setData(Uri.parse(url));
-                                        postActivity.startActivity(intent);
-                                    }
-                                }
-
-                                private boolean isConannewsLink(String url) {
-                                    return url.contains("conannews.org");
+                                    LinkHandler linkHandler = new LinkHandler();
+                                    linkHandler.open(link, url, postActivity);
                                 }
 
                                 @Override
@@ -335,6 +302,7 @@ class HTMLParser {
                                     ds.setUnderlineText(true);
                                 }
                             };
+                            Log.v(TAG, "startIndex: " + startIndex + ", endIndex: " + endIndex);
                             tableSpanString.setSpan(linkClickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                             col.setText(tableSpanString);
                             col.setMovementMethod(LinkMovementMethod.getInstance());
@@ -369,31 +337,12 @@ class HTMLParser {
 
         view.addView(contentLayout);
 
-//        TextView paragraphView = (TextView) postActivity.getLayoutInflater().inflate(R.layout.article_paragraph, view, false);
-//        paragraphView.setText(spannableStringBuilder);
-//        paragraphView.setMovementMethod(LinkMovementMethod.getInstance());
-//        view.addView(paragraphView);
-
-//        for (Element element : contentElements.select("p")) {
-//            System.out.println(element.html());
-//            TextView contentView = new TextView(postActivity);
-//            contentView.setText(element.text());
-//            view.addView(contentView);
-//        }
-
-        //createArticle(articleElement, )
-
-
         Elements paragraphs = articleElement.select("p");
         StringBuilder builder = new StringBuilder();
         for (Element paragraphElement : paragraphs) {
             builder.append(paragraphElement.text() + "\n\n");
         }
         return view;
-    }
-
-    private static boolean isConanCastDownloadLink(Element link) {
-        return link.className().equals("powerpress_link_d");
     }
 
     public void parsePosts(BufferedReader br) throws IOException {
@@ -411,20 +360,6 @@ class HTMLParser {
         for (Element element : elements) {
             Log.v("HTMLParser", element.html());
         }
-
-//        try {
-//            line = br.readLine();
-//            while (line != null) {
-//                if (isArticle(line)) {
-//                    Log.v("HTMLParser", "found article");
-//                    parseArticle(line, br);
-//                    line = br.readLine();
-//                }
-//                line = br.readLine();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         Log.v("HTMLParser", "end parsing");
     }
 

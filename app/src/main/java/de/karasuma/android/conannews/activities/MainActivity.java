@@ -70,12 +70,11 @@ public class MainActivity extends AppCompatActivity {
             conanNewsURL = bundle.getString("filterURL");
         }
 
-        loadNextPosts();
-
-
         recyclerViewAdapter = new RecyclerViewAdapter(Model.getInstance().getPosts(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
         initScrollListener();
+
+        loadNextPosts();
 
         FirebaseMessaging.getInstance().subscribeToTopic("conannews")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -94,7 +93,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadNextPosts() {
         RequestPostsTask task = new RequestPostsTask(this);
-        task.execute(conanNewsURL + pageURL + pageIndex + "/");
+        Log.v(TAG, conanNewsURL);
+        if (conanNewsURL.charAt(conanNewsURL.length() - 1) != '/') {
+            conanNewsURL += '/';
+        }
+
+        if (pageIndex == 1) {
+            task.execute(conanNewsURL);
+        } else {
+            task.execute(conanNewsURL + pageURL + pageIndex + '/');
+        }
         pageIndex++;
     }
 
@@ -186,6 +194,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setConanNewsURL(String conanNewsURL) {
+        this.conanNewsURL = conanNewsURL;
+        int pageIndex = this.conanNewsURL.indexOf("page");
+
+        if (pageIndex == -1) {
+            return;
+        }
+
+        this.conanNewsURL = conanNewsURL.substring(0, pageIndex);
+    }
 
     public View getProgressCircular() {
         return progressCircular;

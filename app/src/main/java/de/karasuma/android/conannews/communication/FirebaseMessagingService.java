@@ -20,17 +20,16 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        String summary = remoteMessage.getData().get("summary");
+        String description = remoteMessage.getData().get("description");
 
         //remove all html tags from summary
-        summary = summary.replaceAll("<[^>]*>", "");
-
+        description = description.replaceAll("<[^>]*>", "");
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "conannews")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(remoteMessage.getData().get("title"))
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(summary))
+                        .bigText(description))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
