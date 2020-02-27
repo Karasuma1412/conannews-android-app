@@ -50,7 +50,7 @@ public class LinkHandler {
             activity.startActivity(intent);
         } else {
             Log.v(TAG, "ConanNews other link");
-            //open in web view
+            openInBrowser(url, activity);
         }
 
     }
