@@ -250,6 +250,10 @@ class HTMLParser {
                 int startIndex = e.text().indexOf(linkText);
                 int endIndex = startIndex + linkText.length();
 
+                if (startIndex == endIndex) {
+                    continue;
+                }
+
                 ClickableSpan linkClickableSpan = new ClickableSpan() {
 
                     @Override
